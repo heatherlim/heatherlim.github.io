@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Flatiron School | My Octopress Blog]]></title>
   <link href="http://heatherlim.github.io/blog/categories/flatiron-school/atom.xml" rel="self"/>
   <link href="http://heatherlim.github.io/"/>
-  <updated>2015-10-06T23:52:00-04:00</updated>
+  <updated>2015-10-25T21:45:53-04:00</updated>
   <id>http://heatherlim.github.io/</id>
   <author>
     <name><![CDATA[Your Name]]></name>
@@ -12,6 +12,92 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Things Coming Round Again and the Importance of Thinking Before Coding]]></title>
+    <link href="http://heatherlim.github.io/blog/2015/10/25/my-first-post-on-octopress/"/>
+    <updated>2015-10-25T20:44:04-04:00</updated>
+    <id>http://heatherlim.github.io/blog/2015/10/25/my-first-post-on-octopress</id>
+    <content type="html"><![CDATA[<p>I&rsquo;m still working on my cute random group sample code because spending hours solving a &ldquo;problem&rdquo; that probably takes up just ten minutes of your time doing manually is a fun thing to do. It really is.</p>
+
+<p>Anyway, it has made a lot of progress from before. I remembered that I was so uncomfortable with classes two weeks ago&hellip; and now&hellip; well I&rsquo;m still not as comfortable as I&rsquo;d like to be but I&rsquo;m actually using them now which is a plus. Something I learned while working on this is that sometimes the best way to solve a problem is the simplest approach. I was so excited about using .sample that I ignored some of the more obvious methods to use. Instead, I used .sample and .pop to pull random people from the array.</p>
+
+<p>This is a section of my original code:
+<code>
+def random_group(people, groupnumber)
+  random_person = people.sample
+  binding.pry
+  group_array = []
+   Array.new(groupnumber) {people.sample }
+    people.each do |each_person|
+      if each_person != random_person
+        group_array &lt;&lt; random_person
+        people.delete_if {|repeat_person| repeat_person == random_person}
+        binding.pry
+      elsif each_person == random_person
+        people.delete_if {|repeat_person| repeat_person == random_person}
+      end     
+    end
+</code>
+If you can&rsquo;t decipher what the hell is going on, that&rsquo;s fine because it didn&rsquo;t work and I could barely tell myself what I was doing. First warning sign I suppose that I should find a different approach.</p>
+
+<p>My problem I outlined in my previous post was that .sample would take a random person out of the array but there when the method was run again, there was still a chance to pick the same person out of the array. The person wasn&rsquo;t actually removed in the array. While I had thought I could use .pop, that method would not be random.</p>
+
+<p>The solution was to use .shuffle before .pop was used. This way, I can now pick random people out of the array until it was empty. I wasted a lot of time with .sample because I was too focused in using .sample than using the right tool for the job. I&rsquo;m not saying using .sample is impossible but .shuffle and .pop made mroe sense to me.</p>
+
+<p>Now my code has two methods that make the hash and fill it.</p>
+
+<pre><code>def create_groups 
+     range = (1..@groupnumber).to_a
+     range.each do |indgroup| # 1, 2, 3, 4...
+     @groups["group" + " " + "#{indgroup}"] = []
+    end  
+    @groups
+  end
+
+  def filling_group
+    people_number = @people.count/@groupnumber
+    range = (1..@groupnumber).to_a
+     range.each do |indgroup|
+        @groups["group" + " " + "#{indgroup}"] &lt;&lt; @people.shuffle!.pop(people_number)    
+          @groups.values.each do |x|
+            x.flatten!
+         end
+     end 
+  end
+</code></pre>
+
+<p>With this, I had fulfilled the first goal I set. Right now, my code could create x number of groups for x amount of people. I added the code below as well so that it would be possible for people to be divided into groups even if the groups were uneven. Like 20 people could be divided into 7 groups and so on.</p>
+
+<pre><code>def if_uneven
+    range = (1..@people.count).to_a
+    range.each do |indgroup|
+      @groups["group" + " " + "#{indgroup}"] &lt;&lt; @people.shuffle!.pop
+    end
+  end
+</code></pre>
+
+<p>After people are sorted into groups, the remaining number of people would in the people array would be iterated through again and distributed amoungst the groups already made.</p>
+
+<p>And now comes the part where thinking ahead would have really helped me out. I had thought that being able to sort people randomly into groups was the first step in my project. The second step would be to show all other unique possibilities of groups. Though I could keep running the program, it does not actually &ldquo;remember&rdquo; the last distribution it made. So it is highly possible that if Person 1 and Person 2 were paired together, they could be paired together again whether in the same group or a different one.</p>
+
+<p>I spent awhile thinking about how to make the program remember what groups each person was put into and make sure they&rsquo;d never be in a group where some of their original group mates were. Should I use databases to store this information? Or I could make an even bigger hash. I could place
+<code>
+groups = {
+  :group1 =&gt; [],
+  :group2 =&gt; [],
+  :group3 =&gt; [],
+  :group4 =&gt; [],
+  :group5 =&gt; []
+}
+</code>
+into a hash with values of days. So it would be Day 1 => groups&hellip; Day 2 => groups&hellip;</p>
+
+<p>But then I realized that my problem was a symptom of not thinking ahead. If I were going to list out all possible unique combinations, why the hell was I randomizing it? Instead, I needed a method that would pick out the groups in the exact same way each time.</p>
+
+<p>So thinking ahead would have saved me a lot of time though in the end I still learned a lot. Though just for more practice I decided to try make my program into a webapp to get more familiar with sinatra. The final result is a page that would show groups and their random distribution whenever it gets refreshed. Eventually I&rsquo;d like to make a form where people can simply input the number of groups they want and the people they want to sort.</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Why I Had Problems With Arrays/Hashes/Pigeons... (and What Else I Learned)]]></title>
