@@ -1,0 +1,476 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[My Octopress Blog]]></title>
+  <link href="http://heatherlim.github.io/atom.xml" rel="self"/>
+  <link href="http://heatherlim.github.io/"/>
+  <updated>2015-11-09T23:06:20-05:00</updated>
+  <id>http://heatherlim.github.io/</id>
+  <author>
+    <name><![CDATA[Your Name]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Methods of Sorting and a Bit of Trailing Around From There]]></title>
+    <link href="http://heatherlim.github.io/blog/2015/11/09/methods-of-sorting/"/>
+    <updated>2015-11-09T22:14:16-05:00</updated>
+    <id>http://heatherlim.github.io/blog/2015/11/09/methods-of-sorting</id>
+    <content type="html"><![CDATA[<p>While working on my sorting program, I came across several interesting methods that I didn&rsquo;t know before. While I haven&rsquo;t used any of them in my project thus far, I still found them pretty cool. From there I normally go on long google crawls until sometimes I learn things completely unrelated but still pretty cool. So this blog post is about my train of thought and how I get from sorting to something else entirely.</p>
+
+<p>The first two methods I played around with were array methods called permutation and combination.</p>
+
+<p>An example of permutation:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>[1, 2, 3].permutation.to_a
+</span><span class='line'>=&gt; [[1, 2, 3], [1, 3, 2], [2, 1, 3], [2, 3, 1], [3, 1, 2], [3, 2, 1]]
+</span><span class='line'>[1, 2, 3].permutation(2).to_a
+</span><span class='line'>=&gt; [[1, 2], [1, 3], [2, 1], [2, 3], [3, 1], [3, 2]]</span></code></pre></td></tr></table></div></figure>
+
+
+<p>An example of combination:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>[1, 2, 3].combination(2).to_a
+</span><span class='line'>=&gt; [[1, 2], [1, 3], [2, 3]] </span></code></pre></td></tr></table></div></figure>
+
+
+<p>Combination requires you to put in an argument while permutation does not. Permutation defaults to the number of elements in the array. Also notable is that there are always going to be more permutations than combinations because combination takes order of the elements into account so [1, 2] and [2, 1] are considered the same.</p>
+
+<p>So how could I find all combinations in an array of people so that every person in the array would have met exactly once? So a group of Mary and Tom would be considered the same as a group of Tom and Mary. Well&hellip; there&rsquo;s a gem for that. It&rsquo;s called the round robin tournmanet gem. And I&rsquo;ll provide a link at the bottom.</p>
+
+<p>This is a portion of its  code that I copied from its github repository:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>def self.schedule(array)
+</span><span class='line'>    array.push nil if array.size.odd?
+</span><span class='line'>    n = array.size
+</span><span class='line'>    pivot = array.pop
+</span><span class='line'>    games = (n - 1).times.map do
+</span><span class='line'>      array.rotate!
+</span><span class='line'>      [[array.first, pivot]] + (1...(n / 2)).map { |j| [array[j], array[n - 1 - j]] }
+</span><span class='line'>    end
+</span><span class='line'>    array.push pivot unless pivot.nil?
+</span><span class='line'>    games
+</span><span class='line'>  end
+</span><span class='line'>
+</span><span class='line'>  # running it will give...
+</span><span class='line'>
+</span><span class='line'>  self.schedule(a)
+</span><span class='line'> =&gt; [[[2, 4], [3, 1]], [[3, 4], [1, 2]], [[1, 4], [2, 3]]] </span></code></pre></td></tr></table></div></figure>
+
+
+<p>Pretty cool!</p>
+
+<p>Interestingly enough however, while I find methods that work for sorting unique pairs, unique trios and so on&hellip; they all function very differently so I&rsquo;m still looking for one that could work in all cases for my sorting project.</p>
+
+<p>Another method I found helpful is a rails method called in_groups_of. It is used to split an array into groups of whatever number is put inside the argument.</p>
+
+<p>Here&rsquo;s an example of its usage:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>%w(1 2 3 4 5 6 7 8 9 10).in_groups_of(3) {|group| p group}
+</span><span class='line'>["1", "2", "3"]
+</span><span class='line'>["4", "5", "6"]
+</span><span class='line'>["7", "8", "9"]
+</span><span class='line'>["10", nil, nil]</span></code></pre></td></tr></table></div></figure>
+
+
+<p>The example I saw was the first time I saw %w in use too. Putting the %w makes it so the elements are split up by the whitespace. So I would be able to get the same result if I had typed [1, 2, 3, 4, 5, 6, 7, 8, 9, 10].in_groups_of(3) as well.</p>
+
+<p>Note that it padded the last group with nil. There&rsquo;s a way around that if that isn&rsquo;t what you&rsquo;re looking for. For example:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>%w(1 2 3 4 5).in_groups_of(2, false) {|group| p group}
+</span><span class='line'>["1", "2"]
+</span><span class='line'>["3", "4"]
+</span><span class='line'>["5"]</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Here you can see there is a second argument placed. When false is written there, it will not pad the remaining spaces left over from the uneven grouping. Aside from false, you can also place anything else in there and the method will use that to pad the empty spaces.</p>
+
+<p>This method however is only available in rails. In ruby there is a similar method called each_slice.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>(1..10).each_slice(3) {|a| p a}
+</span><span class='line'># outputs below
+</span><span class='line'>[1, 2, 3]
+</span><span class='line'>[4, 5, 6]
+</span><span class='line'>[7, 8, 9]
+</span><span class='line'>[10]</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Aside from a range, it is also possible to use it on an array. Both of those methods work similar to the way my sorting program does. But it divides up an array based on how many elements one wants inside each new group rather than the group number.</p>
+
+<p>Something random I found interesting when I was experimenting was that when I called .class on the result of each_slice, I was getting a NilClass.</p>
+
+<p>What I copied from my cmd line:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>2.2.2 :010 &gt; (1..10).each_slice(3) {|a| p a}
+</span><span class='line'>[1, 2, 3]
+</span><span class='line'>[4, 5, 6]
+</span><span class='line'>[7, 8, 9]
+</span><span class='line'>[10]
+</span><span class='line'> =&gt; nil 
+</span><span class='line'>2.2.2 :011 &gt; _.class
+</span><span class='line'>=&gt; NilClass </span></code></pre></td></tr></table></div></figure>
+
+
+<p>I thought it was interesting because I was using &lsquo;p&rsquo; in the {|a| p a } part. A distinction between p and puts would be that p normally returns to me the actual class. Not nil. Maybe it returned nile because of something to do with the iteration? I&rsquo;m not too sure.</p>
+
+<p>Distinguising p and puts example:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>2.2.2 :017 &gt; p "1"
+</span><span class='line'>"1"
+</span><span class='line'> =&gt; "1" 
+</span><span class='line'>2.2.2 :018 &gt; _.class
+</span><span class='line'> =&gt; String 
+</span><span class='line'>2.2.2 :019 &gt; puts "1"
+</span><span class='line'>1
+</span><span class='line'> =&gt; nil 
+</span><span class='line'>2.2.2 :020 &gt; _.class
+</span><span class='line'> =&gt; NilClass </span></code></pre></td></tr></table></div></figure>
+
+
+<p>p calls on .inspect. Notie that the return value is not nil. So it was odd for me that in the each slice example it gave me a nil return value. I experimented a bit further with each slice to see what puts and print would give me if I placed it where the p was.</p>
+
+<p>print:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>2.2.2 :024 &gt; (1..10).each_slice(3) {|a| print a}
+</span><span class='line'>[1, 2, 3][4, 5, 6][7, 8, 9][10] =&gt; nil </span></code></pre></td></tr></table></div></figure>
+
+
+<p>Considering that print was like puts but does not add a new line, I was not too surprised to see this.</p>
+
+<p>But when I used puts&hellip;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>2.2.2 :025 &gt; (1..10).each_slice(3) {|a| puts a}
+</span><span class='line'>1
+</span><span class='line'>2
+</span><span class='line'>3
+</span><span class='line'>4
+</span><span class='line'>5
+</span><span class='line'>6
+</span><span class='line'>7
+</span><span class='line'>8
+</span><span class='line'>9
+</span><span class='line'>10
+</span><span class='line'> =&gt; nil </span></code></pre></td></tr></table></div></figure>
+
+
+<p>It surprised me that it did not actually output the arrays but just the whole range. I&rsquo;m not too sure why it did that. I assume on the first iteration a is [1, 2, 3] and so on&hellip; and used a pry to confirm it was too. So I wonder why it prints out the whole range instead of the array.</p>
+
+<p>References:<br>
+<a href = "http://chriscontinanza.com/2010/10/29/Array.html">Permutations and Combinations</a><br>
+<a href = "http://apidock.com/rails/Array/in_groups_of">in groups of</a><br>
+<a href = "http://apidock.com/ruby/Enumerable/each_slice">each slice</a><br>
+<a href = "http://www.garethrees.co.uk/2013/05/04/p-vs-puts-vs-print-in-ruby/">difference between p, puts and print</a><br>
+<a href = "https://github.com/ssaunier/round_robin_tournament">round robin gem</a></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Things Coming Round Again and the Importance of Thinking Before Coding]]></title>
+    <link href="http://heatherlim.github.io/blog/2015/10/25/my-first-post-on-octopress/"/>
+    <updated>2015-10-25T20:44:04-04:00</updated>
+    <id>http://heatherlim.github.io/blog/2015/10/25/my-first-post-on-octopress</id>
+    <content type="html"><![CDATA[<p>I&rsquo;m still working on my cute random group sample code because spending hours solving a &ldquo;problem&rdquo; that probably takes up just ten minutes of your time doing manually is a fun thing to do. It really is.</p>
+
+<p>Anyway, it has made a lot of progress from before. I remembered that I was so uncomfortable with classes two weeks ago&hellip; and now&hellip; well I&rsquo;m still not as comfortable as I&rsquo;d like to be but I&rsquo;m actually using them now which is a plus. Something I learned while working on this is that sometimes the best way to solve a problem is the simplest approach. I was so excited about using .sample that I ignored some of the more obvious methods to use. Instead, I used .sample and .pop to pull random people from the array.</p>
+
+<p>This is a section of my original code:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>def random_group(people, groupnumber)
+</span><span class='line'>  random_person = people.sample
+</span><span class='line'>  binding.pry
+</span><span class='line'>  group_array = [] 
+</span><span class='line'>   Array.new(groupnumber) {people.sample }
+</span><span class='line'>    people.each do |each_person|
+</span><span class='line'>      if each_person != random_person
+</span><span class='line'>        group_array &lt;&lt; random_person
+</span><span class='line'>        people.delete_if {|repeat_person| repeat_person == random_person}
+</span><span class='line'>        binding.pry
+</span><span class='line'>      elsif each_person == random_person
+</span><span class='line'>        people.delete_if {|repeat_person| repeat_person == random_person}
+</span><span class='line'>      end     
+</span><span class='line'>    end</span></code></pre></td></tr></table></div></figure>
+
+
+<p>If you can&rsquo;t decipher what the hell is going on, that&rsquo;s fine because it didn&rsquo;t work and I could barely tell myself what I was doing. First warning sign I suppose that I should find a different approach.</p>
+
+<p>My problem I outlined in my previous post was that .sample would take a random person out of the array but there when the method was run again, there was still a chance to pick the same person out of the array. The person wasn&rsquo;t actually removed in the array. While I had thought I could use .pop, that method would not be random.</p>
+
+<p>The solution was to use .shuffle before .pop was used. This way, I can now pick random people out of the array until it was empty. I wasted a lot of time with .sample because I was too focused in using .sample than using the right tool for the job. I&rsquo;m not saying using .sample is impossible but .shuffle and .pop made mroe sense to me.</p>
+
+<p>Now my code has two methods that make the hash and fill it.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>def create_groups 
+</span><span class='line'>     range = (1..@groupnumber).to_a
+</span><span class='line'>     range.each do |indgroup| # 1, 2, 3, 4...
+</span><span class='line'>     @groups["group" + " " + "#{indgroup}"] = []
+</span><span class='line'>    end  
+</span><span class='line'>    @groups
+</span><span class='line'>  end
+</span><span class='line'>
+</span><span class='line'>  def filling_group
+</span><span class='line'>    people_number = @people.count/@groupnumber
+</span><span class='line'>    range = (1..@groupnumber).to_a
+</span><span class='line'>     range.each do |indgroup|
+</span><span class='line'>        @groups["group" + " " + "#{indgroup}"] &lt;&lt; @people.shuffle!.pop(people_number)    
+</span><span class='line'>          @groups.values.each do |x|
+</span><span class='line'>            x.flatten!
+</span><span class='line'>         end
+</span><span class='line'>     end 
+</span><span class='line'>  end</span></code></pre></td></tr></table></div></figure>
+
+
+<p>With this, I had fulfilled the first goal I set. Right now, my code could create x number of groups for x amount of people. I added the code below as well so that it would be possible for people to be divided into groups even if the groups were uneven. Like 20 people could be divided into 7 groups and so on.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>def if_uneven
+</span><span class='line'>    range = (1..@people.count).to_a
+</span><span class='line'>    range.each do |indgroup|
+</span><span class='line'>      @groups["group" + " " + "#{indgroup}"] &lt;&lt; @people.shuffle!.pop
+</span><span class='line'>    end
+</span><span class='line'>  end</span></code></pre></td></tr></table></div></figure>
+
+
+<p>After people are sorted into groups, the remaining number of people would in the people array would be iterated through again and distributed amoungst the groups already made.</p>
+
+<p>And now comes the part where thinking ahead would have really helped me out. I had thought that being able to sort people randomly into groups was the first step in my project. The second step would be to show all other unique possibilities of groups. Though I could keep running the program, it does not actually &ldquo;remember&rdquo; the last distribution it made. So it is highly possible that if Person 1 and Person 2 were paired together, they could be paired together again whether in the same group or a different one.</p>
+
+<p>I spent awhile thinking about how to make the program remember what groups each person was put into and make sure they&rsquo;d never be in a group where some of their original group mates were. Should I use databases to store this information? Or I could make an even bigger hash. I could place</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>groups = {
+</span><span class='line'>  :group1 =&gt; [],
+</span><span class='line'>  :group2 =&gt; [],
+</span><span class='line'>  :group3 =&gt; [],
+</span><span class='line'>  :group4 =&gt; [],
+</span><span class='line'>  :group5 =&gt; []
+</span><span class='line'>}</span></code></pre></td></tr></table></div></figure>
+
+
+<p>into a hash with values of days. So it would be Day 1 => groups&hellip; Day 2 => groups&hellip;</p>
+
+<p>But then I realized that my problem was a symptom of not thinking ahead. If I were going to list out all possible unique combinations, why the hell was I randomizing it? Instead, I needed a method that would pick out the groups in the exact same way each time.</p>
+
+<p>So thinking ahead would have saved me a lot of time though in the end I still learned a lot. Though just for more practice I decided to try make my program into a webapp to get more familiar with sinatra. The final result is a page that would show groups and their random distribution whenever it gets refreshed. Eventually I&rsquo;d like to make a form where people can simply input the number of groups they want and the people they want to sort.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Why I Had Problems With Arrays/Hashes/Pigeons... (and What Else I Learned)]]></title>
+    <link href="http://heatherlim.github.io/blog/2015/10/06/first-blog-post/"/>
+    <updated>2015-10-06T21:04:50-04:00</updated>
+    <id>http://heatherlim.github.io/blog/2015/10/06/first-blog-post</id>
+    <content type="html"><![CDATA[<center>
+<img src ="http://heatherlim.github.io/images/pigeon_photo.jpg" width ="300">
+</center>
+
+
+<p>Iteration was my first challenge that I didn&rsquo;t really know what to make of. I went through great pains to not use it. On the first lab where we had to write a method that could tel if a number was prime or not, instead of iterating through the whole array range to see if there were more than two zeroes (the array represented the number being divided by 1 to that particular number. So the first element in the array would be that number divided by one, the second element would be that number divided by two and so on&hellip; if the number was prime, the modulo should return only two 0s), I would instead sort the array and check if array[2] == 0.</p>
+
+<p>So already by avoiding it, I made it harder for myself to pick up. It was probably the first method that didn&rsquo;t look to be in plain English for me. It was pretty abstract.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>basket = ["apple 1","apple 2","apple 3","apple 4","apple 5","apple 6","apple 7","apple 8","apple 9","apple 10"]
+</span><span class='line'>
+</span><span class='line'>basket.each do |apple|
+</span><span class='line'>    puts "Taking out #{apple}"
+</span><span class='line'>end</span></code></pre></td></tr></table></div></figure>
+
+
+<p>It didn&rsquo;t click until later that the word between the | | could be anything. In this case it is apple because it describes each element of the array that is picked up. But it is only for ease of understanding. It could be |oranges| for all the program cares.</p>
+
+<p>It also helped me to visualize what&rsquo;s going on. Basically it was as though a pedantic person was going over each item in the array one by one and then executing whatever the instructions below told him to. So apple (or whatever is between the ||) would be equal to the string &ldquo;apple 1&rdquo; and then &ldquo;apple 2&rdquo; and so on&hellip;</p>
+
+<p>It&rsquo;s a step by step process that I guess I could read as for each item in the array, do this to that item. And that started to make it clearer for me rather than what I thinking before. That it was some kind of magic thing that did something all at once. Figuring out the plain English equivalent made it also easier for me to finish the pigeon hash lab where we had to sort out pigeons by their names and attributes. The tricky part was understanding what exactly you were getting between those ||.</p>
+
+<center>
+<img src ="http://heatherlim.github.io/images/pigeon_box.jpg" width ="300">
+</center>
+
+
+<p>Because I found iteration difficult, on my own time, I decided to make a cute program that would be able to take in a bunch of people and divide them into however many groups the user would want. The program would return different groups each time it was run.</p>
+
+<p>For example, while the input would look something like this:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>people = ["Adrian", "Polly", "John", "Ivan", "Jack", "Tom", "Anna", "Mary", "Ben", "Jeff",
+</span><span class='line'>"Alex", "Megan", "Helen", "Sarah", "Wei", "Aristo", "Jane", "Meredith", "Liz", "Lacey"]</span></code></pre></td></tr></table></div></figure>
+
+
+<p>The output will be in this format:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>groups = {
+</span><span class='line'>   :group1 =&gt; [-names here-],
+</span><span class='line'>   :group2 =&gt; [-names here-],
+</span><span class='line'>   :group3 =&gt; [-names here-],
+</span><span class='line'>   :group4 =&gt; [-names here-],
+</span><span class='line'>   :group5 =&gt; [-names here-]
+</span><span class='line'>    }
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Because I wanted to find a random person from the people array, I thought why not find a random number with rand() and make the number inside rand to be people.count? Then, if I named that variable something, I could call it into people[random] and it should return a random person from the array.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>random = rand(people.count)
+</span><span class='line'>  people[random]
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>After this, I would be able to shovel in random people into their arrays as long as the people inside each of their arrays would not exceed the people.length/groupnumber. Which makes sense because if the array has 20 people in it, and we want to make five groups, each group would have four people in it.</p>
+
+<p>However, even though I made progress with feeling more comfortable with iteration, I found it difficult to return a different random person each time so my groups would always be filled with the same random person. My logic was something like how can I iterate over my random variable if it wasn&rsquo;t an array? Then I tried some stuff with iterating over the people array and only shoveling in each person if the person value was equal to the random person value&hellip;</p>
+
+<p>In any case, it didn&rsquo;t quite work out and I found a different method to get four different people into the array. So first I wanted to make an array with variables in it equal to the number of people I wanted in the group. So let that variable be called people_in_group (which would be the length of the people array divided by the number of groups we want).</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>Array.new(people_in_group)
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Now this should create an array with a bunch of nils. But we can use .sample</p>
+
+<p>.sample can choose a random element from the array</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>Array.new(people_in_group){people.sample}
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>This will fill the new array with random people until the number of elements it has is equal to the number of people we want in the group.</p>
+
+<p>Right now I&rsquo;m working on making sure there are no repeated people inside each array. Then I will make sure the people do not repeat in each group.</p>
+
+<p>So hopefully completing this mini program will help me out further with iteration and sorting. In any case, maybe I&rsquo;ll be qualified enough as an entry-level pigeon sorter.</p>
+
+<p>My current trouble is now with classes. So hopefully by the next time I make another post I&rsquo;ll be confident enough to write a little about it.</p>
+]]></content>
+  </entry>
+  
+</feed>
