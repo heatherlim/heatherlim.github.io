@@ -64,7 +64,9 @@ But that still doesn't solve all that logic in the view! So right now I'm thinki
 
 One issue that cropped up is the styling. When a user adds an item to a closet, they should get a message that would kinda look like this:
 
-<em>added</e> mediocre rubber pants <em>to</em> whatever closet
+<em>added</em> mediocre rubber pants <em>to</em> whatever closet
+
+How was I supposed to selectively add styling to a whole message?
 
 So at first I thought oh great all I have to do is put this in the view object:
 ```
@@ -189,6 +191,6 @@ I also added an attribute accessor to lessen the repetition in the partial when 
 
 <%end%>
 ```
-It's already looking a lot better.
+It's already looking a lot better, half the size it was before and way more readable.
 
 Refactoring is definitely a process for me and it involves many little edits along the way.
