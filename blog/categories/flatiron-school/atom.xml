@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[Category: Flatiron School | My Octopress Blog]]></title>
+  <title><![CDATA[Category: flatiron school | My Octopress Blog]]></title>
   <link href="http://heatherlim.github.io/blog/categories/flatiron-school/atom.xml" rel="self"/>
   <link href="http://heatherlim.github.io/"/>
-  <updated>2015-12-17T10:02:07-05:00</updated>
+  <updated>2015-12-17T10:17:11-05:00</updated>
   <id>http://heatherlim.github.io/</id>
   <author>
     <name><![CDATA[Your Name]]></name>
@@ -14,7 +14,7 @@
 
   
   <entry>
-    <title type="html"><![CDATA[Methods of Sorting and a Bit of Trailing Around From There]]></title>
+    <title type="html"><![CDATA[Methods of Sorting and a Bit of Trailing Around from There]]></title>
     <link href="http://heatherlim.github.io/blog/2015/11/09/methods-of-sorting/"/>
     <updated>2015-11-09T22:14:16-05:00</updated>
     <id>http://heatherlim.github.io/blog/2015/11/09/methods-of-sorting</id>
@@ -260,7 +260,7 @@ into a hash with values of days. So it would be Day 1 => groups&hellip; Day 2 =>
   </entry>
   
   <entry>
-    <title type="html"><![CDATA[Why I Had Problems With Arrays/Hashes/Pigeons... (and What Else I Learned)]]></title>
+    <title type="html"><![CDATA[Why I Had Problems With Arrays/Hashes/Pigeons... (and what else I learned)]]></title>
     <link href="http://heatherlim.github.io/blog/2015/10/06/first-blog-post/"/>
     <updated>2015-10-06T21:04:50-04:00</updated>
     <id>http://heatherlim.github.io/blog/2015/10/06/first-blog-post</id>
