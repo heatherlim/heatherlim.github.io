@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[Category: flatiron school | My Octopress Blog]]></title>
+  <title><![CDATA[Category: flatiron school | Code Stuff]]></title>
   <link href="http://heatherlim.github.io/blog/categories/flatiron-school/atom.xml" rel="self"/>
   <link href="http://heatherlim.github.io/"/>
-  <updated>2015-12-17T10:17:11-05:00</updated>
+  <updated>2015-12-17T10:20:38-05:00</updated>
   <id>http://heatherlim.github.io/</id>
   <author>
-    <name><![CDATA[Your Name]]></name>
+    <name><![CDATA[Heather Lim]]></name>
     
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
