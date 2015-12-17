@@ -1,20 +1,162 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[My Octopress Blog]]></title>
+  <title><![CDATA[Heather's Technical Blog]]></title>
   <link href="http://heatherlim.github.io/atom.xml" rel="self"/>
   <link href="http://heatherlim.github.io/"/>
-  <updated>2015-11-09T23:06:20-05:00</updated>
+  <updated>2015-12-03T16:31:57-05:00</updated>
   <id>http://heatherlim.github.io/</id>
   <author>
-    <name><![CDATA[Your Name]]></name>
+    <name><![CDATA[Heather Lim]]></name>
     
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
   
   <entry>
-    <title type="html"><![CDATA[Methods of Sorting and a Bit of Trailing Around From There]]></title>
+    <title type="html"><![CDATA[Project Euler's Longest Collatz Sequence Problem]]></title>
+    <link href="http://heatherlim.github.io/blog/2015/12/02/project-eulers-longest-collatz-sequence-problem/"/>
+    <updated>2015-12-02T22:40:51-05:00</updated>
+    <id>http://heatherlim.github.io/blog/2015/12/02/project-eulers-longest-collatz-sequence-problem</id>
+    <content type="html"><![CDATA[<p>Project Euler had a problem I found quite fun. The challenge was to find a number up to one million that had the longest collatz sequence.</p>
+
+<p>The link to the problem can be found <a href = "https://projecteuler.net/problem=14">HERE</a></p>
+
+<p>To summarize, if we follow these two rules:</p>
+
+<p>n → n/2 (n is even)
+n → 3n + 1 (n is odd)</p>
+
+<p>The idea is that the final number will always end at 1.</p>
+
+<p>So for example if n was 13&hellip;</p>
+
+<p>13 → 40 → 20 → 10 → 5 → 16 → 8 → 4 → 2 → 1</p>
+
+<p>That is the sequence we will get. So how could we find a way to find which number between one and a million would have the longest sequence?</p>
+
+<p>First, there are four methods that would create my collatz sequence.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>def even_next(n)
+</span><span class='line'>  n/2
+</span><span class='line'>end
+</span><span class='line'>
+</span><span class='line'>def odd_next(n)
+</span><span class='line'>  3*n + 1
+</span><span class='line'>end
+</span><span class='line'>
+</span><span class='line'>def next_value(n)
+</span><span class='line'>  if n.even?
+</span><span class='line'>    even_next(n)
+</span><span class='line'>  else
+</span><span class='line'>    odd_next(n)
+</span><span class='line'>  end
+</span><span class='line'>end
+</span><span class='line'>
+</span><span class='line'>def collatz(n)
+</span><span class='line'>  array = []
+</span><span class='line'>  until array.last == 1 do
+</span><span class='line'>    if array.empty?
+</span><span class='line'>      array &lt;&lt; n
+</span><span class='line'>    else
+</span><span class='line'>      array &lt;&lt; next_value(array.last)
+</span><span class='line'>    end
+</span><span class='line'>  end
+</span><span class='line'>  array
+</span><span class='line'>end</span></code></pre></td></tr></table></div></figure>
+
+
+<p><strong>even_next</strong> and <strong>odd_next</strong> decide what to do when a number is odd or even. <strong>next_value</strong> decides whether to run <strong>even_next</strong> or <strong>odd_next</strong> by checking if the number is even or odd. and the method <strong>collatz</strong> brings it all together. It will keep using the <strong>next_value</strong> method and pushing the result into an array until the final number of the array is 1.</p>
+
+<p>Now the next step of the problem is to find out what the longest sequence is. This is my initial solution:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>def longest_collatz
+</span><span class='line'>  arrayLimit = (1..1000000).to_a
+</span><span class='line'>  collatzArray = []
+</span><span class='line'>  arrayLimit.each do |number|
+</span><span class='line'>    if collatzArray.empty?
+</span><span class='line'>      collatzArray &lt;&lt; collatz(number)
+</span><span class='line'>    elsif collatzArray.flatten.length &lt; collatz(number).length
+</span><span class='line'>      collatzArray &lt;&lt; collatz(number)
+</span><span class='line'>      collatzArray.shift
+</span><span class='line'>    end
+</span><span class='line'>  end
+</span><span class='line'>  return collatzArray.last[0]
+</span><span class='line'>end</span></code></pre></td></tr></table></div></figure>
+
+
+<p>While it does work, it took about a minute to run!</p>
+
+<p>Not exactly ideal. So why did it take so long?</p>
+
+<p>Firstly, there are a lot of redundant steps. Each time my iterator runs, it shovels in a whole collatz sequence, then when it runs again, it will compare the next number&rsquo;s collatz sequence with the one already in collatzArray. If it is longer, it will then delete the shorter sequence in the array. If the sequence is shorter, it then does not push it into the array. Finally, it would look at the first element (the starting number) of the final result.</p>
+
+<p>One of my classmates had a different and more elegant solution:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>def longest_collatz
+</span><span class='line'> collatz_sequence = (1...1000000).map {|n| [collatz(n).length, n] }
+</span><span class='line'> collatz_sequence.max[1]
+</span><span class='line'>end</span></code></pre></td></tr></table></div></figure>
+
+
+<p>One major difference is that he sorts it by length at the end. While mine made a sequence, compared and deleted depending on the next starting number. This way of solving it cuts down the time from my original solution&rsquo;s 50-ish seconds to about 30-ish seconds. It also made more sense to me. The problem is only asking for the starting number of the longest sequence. It isn&rsquo;t actually asking for the longest sequence. While my final array would hold the longest sequence, this solution would just hold the starting number and length of the sequence.</p>
+
+<p>However, there are also more ways to cut down on processing time.</p>
+
+<p>For example, there is no real need to keep recalculating the collatz sequence for each number to a million as this image illustrates:</p>
+
+<p><img src = "http://martin-thoma.com/images/2013/05/collatz-graph.png"></p>
+
+<p>Once we hit a number we have calculated before, for example&hellip; 26&hellip; we can see that the sequence is already known so we do not have to calculate what the next number is going to be. So by extension, we can just add the length of that already calculated sequence to our sequence length before it hits that repeated number.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Methods of Sorting and a Bit of Trailing Around from There]]></title>
     <link href="http://heatherlim.github.io/blog/2015/11/09/methods-of-sorting/"/>
     <updated>2015-11-09T22:14:16-05:00</updated>
     <id>http://heatherlim.github.io/blog/2015/11/09/methods-of-sorting</id>
@@ -369,16 +511,11 @@
   </entry>
   
   <entry>
-    <title type="html"><![CDATA[Why I Had Problems With Arrays/Hashes/Pigeons... (and What Else I Learned)]]></title>
+    <title type="html"><![CDATA[Why I Had Problems With Arrays/Hashes/Pigeons... (and what else I learned)]]></title>
     <link href="http://heatherlim.github.io/blog/2015/10/06/first-blog-post/"/>
     <updated>2015-10-06T21:04:50-04:00</updated>
     <id>http://heatherlim.github.io/blog/2015/10/06/first-blog-post</id>
-    <content type="html"><![CDATA[<center>
-<img src ="http://heatherlim.github.io/images/pigeon_photo.jpg" width ="300">
-</center>
-
-
-<p>Iteration was my first challenge that I didn&rsquo;t really know what to make of. I went through great pains to not use it. On the first lab where we had to write a method that could tel if a number was prime or not, instead of iterating through the whole array range to see if there were more than two zeroes (the array represented the number being divided by 1 to that particular number. So the first element in the array would be that number divided by one, the second element would be that number divided by two and so on&hellip; if the number was prime, the modulo should return only two 0s), I would instead sort the array and check if array[2] == 0.</p>
+    <content type="html"><![CDATA[<p>Iteration was my first challenge that I didn&rsquo;t really know what to make of. I went through great pains to not use it. On the first lab where we had to write a method that could tel if a number was prime or not, instead of iterating through the whole array range to see if there were more than two zeroes (the array represented the number being divided by 1 to that particular number. So the first element in the array would be that number divided by one, the second element would be that number divided by two and so on&hellip; if the number was prime, the modulo should return only two 0s), I would instead sort the array and check if array[2] == 0.</p>
 
 <p>So already by avoiding it, I made it harder for myself to pick up. It was probably the first method that didn&rsquo;t look to be in plain English for me. It was pretty abstract.</p>
 
@@ -399,11 +536,6 @@
 <p>It also helped me to visualize what&rsquo;s going on. Basically it was as though a pedantic person was going over each item in the array one by one and then executing whatever the instructions below told him to. So apple (or whatever is between the ||) would be equal to the string &ldquo;apple 1&rdquo; and then &ldquo;apple 2&rdquo; and so on&hellip;</p>
 
 <p>It&rsquo;s a step by step process that I guess I could read as for each item in the array, do this to that item. And that started to make it clearer for me rather than what I thinking before. That it was some kind of magic thing that did something all at once. Figuring out the plain English equivalent made it also easier for me to finish the pigeon hash lab where we had to sort out pigeons by their names and attributes. The tricky part was understanding what exactly you were getting between those ||.</p>
-
-<center>
-<img src ="http://heatherlim.github.io/images/pigeon_box.jpg" width ="300">
-</center>
-
 
 <p>Because I found iteration difficult, on my own time, I decided to make a cute program that would be able to take in a bunch of people and divide them into however many groups the user would want. The program would return different groups each time it was run.</p>
 
