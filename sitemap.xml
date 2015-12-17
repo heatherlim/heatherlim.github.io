@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>http://heatherlim.github.io/blog/2015/12/17/a-refactoring-process/</loc>
+    <lastmod>2015-12-17T09:29:21-05:00</lastmod>
+  </url>
+  <url>
+    <loc>http://heatherlim.github.io/blog/2015/11/09/methods-of-sorting/</loc>
+    <lastmod>2015-11-09T22:14:16-05:00</lastmod>
+  </url>
+  <url>
+    <loc>http://heatherlim.github.io/blog/2015/10/25/my-first-post-on-octopress/</loc>
+    <lastmod>2015-10-25T20:44:04-04:00</lastmod>
+  </url>
+  <url>
+    <loc>http://heatherlim.github.io/blog/2015/10/06/first-blog-post/</loc>
+    <lastmod>2015-10-06T21:04:50-04:00</lastmod>
+  </url>
+  <url>
+    <loc>http://heatherlim.github.io/blog/archives/</loc>
+  </url>
+  <url>
+    <loc>http://heatherlim.github.io/</loc>
+  </url>
+  <url>
+    <loc>http://heatherlim.github.io/blog/categories/flatiron-school/</loc>
+  </url>
+</urlset>

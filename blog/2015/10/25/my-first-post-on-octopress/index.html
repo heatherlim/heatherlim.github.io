@@ -1,0 +1,325 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Things Coming Round Again and the Importance of Thinking Before Coding - My Octopress Blog</title>
+  <meta name="author" content="Your Name">
+
+  
+  <meta name="description" content="I&rsquo;m still working on my cute random group sample code because spending hours solving a &ldquo;problem&rdquo; that probably takes up just ten &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://heatherlim.github.io/blog/2015/10/25/my-first-post-on-octopress/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="My Octopress Blog" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="/javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">My Octopress Blog</a></h1>
+  
+    <h2>A blogging framework for hackers.</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://www.google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="sitesearch" value="heatherlim.github.io">
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Things Coming Round Again and the Importance of Thinking Before Coding</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2015-10-25T20:44:04-04:00'><span class='date'><span class='date-month'>Oct</span> <span class='date-day'>25</span><span class='date-suffix'>th</span>, <span class='date-year'>2015</span></span> <span class='time'>8:44 pm</span></time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>I&rsquo;m still working on my cute random group sample code because spending hours solving a &ldquo;problem&rdquo; that probably takes up just ten minutes of your time doing manually is a fun thing to do. It really is.</p>
+
+<p>Anyway, it has made a lot of progress from before. I remembered that I was so uncomfortable with classes two weeks ago&hellip; and now&hellip; well I&rsquo;m still not as comfortable as I&rsquo;d like to be but I&rsquo;m actually using them now which is a plus. Something I learned while working on this is that sometimes the best way to solve a problem is the simplest approach. I was so excited about using .sample that I ignored some of the more obvious methods to use. Instead, I used .sample and .pop to pull random people from the array.</p>
+
+<p>This is a section of my original code:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>def random_group(people, groupnumber)
+</span><span class='line'>  random_person = people.sample
+</span><span class='line'>  binding.pry
+</span><span class='line'>  group_array = [] 
+</span><span class='line'>   Array.new(groupnumber) {people.sample }
+</span><span class='line'>    people.each do |each_person|
+</span><span class='line'>      if each_person != random_person
+</span><span class='line'>        group_array &lt;&lt; random_person
+</span><span class='line'>        people.delete_if {|repeat_person| repeat_person == random_person}
+</span><span class='line'>        binding.pry
+</span><span class='line'>      elsif each_person == random_person
+</span><span class='line'>        people.delete_if {|repeat_person| repeat_person == random_person}
+</span><span class='line'>      end     
+</span><span class='line'>    end</span></code></pre></td></tr></table></div></figure>
+
+
+<p>If you can&rsquo;t decipher what the hell is going on, that&rsquo;s fine because it didn&rsquo;t work and I could barely tell myself what I was doing. First warning sign I suppose that I should find a different approach.</p>
+
+<p>My problem I outlined in my previous post was that .sample would take a random person out of the array but there when the method was run again, there was still a chance to pick the same person out of the array. The person wasn&rsquo;t actually removed in the array. While I had thought I could use .pop, that method would not be random.</p>
+
+<p>The solution was to use .shuffle before .pop was used. This way, I can now pick random people out of the array until it was empty. I wasted a lot of time with .sample because I was too focused in using .sample than using the right tool for the job. I&rsquo;m not saying using .sample is impossible but .shuffle and .pop made mroe sense to me.</p>
+
+<p>Now my code has two methods that make the hash and fill it.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>def create_groups 
+</span><span class='line'>     range = (1..@groupnumber).to_a
+</span><span class='line'>     range.each do |indgroup| # 1, 2, 3, 4...
+</span><span class='line'>     @groups["group" + " " + "#{indgroup}"] = []
+</span><span class='line'>    end  
+</span><span class='line'>    @groups
+</span><span class='line'>  end
+</span><span class='line'>
+</span><span class='line'>  def filling_group
+</span><span class='line'>    people_number = @people.count/@groupnumber
+</span><span class='line'>    range = (1..@groupnumber).to_a
+</span><span class='line'>     range.each do |indgroup|
+</span><span class='line'>        @groups["group" + " " + "#{indgroup}"] &lt;&lt; @people.shuffle!.pop(people_number)    
+</span><span class='line'>          @groups.values.each do |x|
+</span><span class='line'>            x.flatten!
+</span><span class='line'>         end
+</span><span class='line'>     end 
+</span><span class='line'>  end</span></code></pre></td></tr></table></div></figure>
+
+
+<p>With this, I had fulfilled the first goal I set. Right now, my code could create x number of groups for x amount of people. I added the code below as well so that it would be possible for people to be divided into groups even if the groups were uneven. Like 20 people could be divided into 7 groups and so on.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>def if_uneven
+</span><span class='line'>    range = (1..@people.count).to_a
+</span><span class='line'>    range.each do |indgroup|
+</span><span class='line'>      @groups["group" + " " + "#{indgroup}"] &lt;&lt; @people.shuffle!.pop
+</span><span class='line'>    end
+</span><span class='line'>  end</span></code></pre></td></tr></table></div></figure>
+
+
+<p>After people are sorted into groups, the remaining number of people would in the people array would be iterated through again and distributed amoungst the groups already made.</p>
+
+<p>And now comes the part where thinking ahead would have really helped me out. I had thought that being able to sort people randomly into groups was the first step in my project. The second step would be to show all other unique possibilities of groups. Though I could keep running the program, it does not actually &ldquo;remember&rdquo; the last distribution it made. So it is highly possible that if Person 1 and Person 2 were paired together, they could be paired together again whether in the same group or a different one.</p>
+
+<p>I spent awhile thinking about how to make the program remember what groups each person was put into and make sure they&rsquo;d never be in a group where some of their original group mates were. Should I use databases to store this information? Or I could make an even bigger hash. I could place</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>groups = {
+</span><span class='line'>  :group1 =&gt; [],
+</span><span class='line'>  :group2 =&gt; [],
+</span><span class='line'>  :group3 =&gt; [],
+</span><span class='line'>  :group4 =&gt; [],
+</span><span class='line'>  :group5 =&gt; []
+</span><span class='line'>}</span></code></pre></td></tr></table></div></figure>
+
+
+<p>into a hash with values of days. So it would be Day 1 => groups&hellip; Day 2 => groups&hellip;</p>
+
+<p>But then I realized that my problem was a symptom of not thinking ahead. If I were going to list out all possible unique combinations, why the hell was I randomizing it? Instead, I needed a method that would pick out the groups in the exact same way each time.</p>
+
+<p>So thinking ahead would have saved me a lot of time though in the end I still learned a lot. Though just for more practice I decided to try make my program into a webapp to get more familiar with sinatra. The final result is a page that would show groups and their random distribution whenever it gets refreshed. Eventually I&rsquo;d like to make a form where people can simply input the number of groups they want and the people they want to sort.</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Your Name</span></span>
+
+      
+
+
+
+
+<time class='entry-date' datetime='2015-10-25T20:44:04-04:00'><span class='date'><span class='date-month'>Oct</span> <span class='date-day'>25</span><span class='date-suffix'>th</span>, <span class='date-year'>2015</span></span> <span class='time'>8:44 pm</span></time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/flatiron-school/'>flatiron school</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://heatherlim.github.io/blog/2015/10/25/my-first-post-on-octopress/" data-via="" data-counturl="http://heatherlim.github.io/blog/2015/10/25/my-first-post-on-octopress/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2015/10/06/first-blog-post/" title="Previous Post: Why I Had Problems With Arrays/Hashes/Pigeons... (and what else I learned)">&laquo; Why I Had Problems With Arrays/Hashes/Pigeons... (and what else I learned)</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2015/11/09/methods-of-sorting/" title="Next Post: Methods of Sorting and a Bit of Trailing Around from There">Methods of Sorting and a Bit of Trailing Around from There &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2015/12/17/a-refactoring-process/">A Refactoring Process</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/11/09/methods-of-sorting/">Methods of Sorting and a Bit of Trailing Around From There</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/10/25/my-first-post-on-octopress/">Things Coming Round Again and the Importance of Thinking Before Coding</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/10/06/first-blog-post/">Why I Had Problems With Arrays/Hashes/Pigeons... (and What Else I Learned)</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2015 - Your Name -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

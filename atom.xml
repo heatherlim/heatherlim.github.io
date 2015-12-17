@@ -1,93 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
 
-<!DOCTYPE html>
-<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
-<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
-<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
-<head>
-  <meta charset="utf-8">
-  <title>My Octopress Blog</title>
-  <meta name="author" content="Your Name">
-
-  
-  <meta name="description" content="For my final project, my group members and I were creating an app that would track prices of a selected item over time. Shoppers could add their &hellip;">
-  
-
-  <!-- http://t.co/dKP3o1e -->
-  <meta name="HandheldFriendly" content="True">
-  <meta name="MobileOptimized" content="320">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-
-  
-  <link rel="canonical" href="http://heatherlim.github.io/">
-  <link href="/favicon.png" rel="icon">
-  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
-  <link href="/atom.xml" rel="alternate" title="My Octopress Blog" type="application/atom+xml">
-  <script src="/javascripts/modernizr-2.0.js"></script>
-  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-  <script>!window.jQuery && document.write(unescape('%3Cscript src="/javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
-  <script src="/javascripts/octopress.js" type="text/javascript"></script>
-  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
-<link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
-<link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
-
-  
-
-</head>
-
-<body   >
-  <header role="banner"><hgroup>
-  <h1><a href="/">My Octopress Blog</a></h1>
-  
-    <h2>A blogging framework for hackers.</h2>
-  
-</hgroup>
-
-</header>
-  <nav role="navigation"><ul class="subscription" data-subscription="rss">
-  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
-  
-</ul>
-  
-<form action="https://www.google.com/search" method="get">
-  <fieldset role="search">
-    <input type="hidden" name="sitesearch" value="heatherlim.github.io">
-    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
-  </fieldset>
-</form>
-  
-<ul class="main-navigation">
-  <li><a href="/">Blog</a></li>
-  <li><a href="/blog/archives">Archives</a></li>
-</ul>
-
-</nav>
-  <div id="main">
-    <div id="content">
-      <div class="blog-index">
-  
-  
-  
-    <article>
-      
-  <header>
+  <title><![CDATA[My Octopress Blog]]></title>
+  <link href="http://heatherlim.github.io/atom.xml" rel="self"/>
+  <link href="http://heatherlim.github.io/"/>
+  <updated>2015-12-17T09:53:39-05:00</updated>
+  <id>http://heatherlim.github.io/</id>
+  <author>
+    <name><![CDATA[Your Name]]></name>
     
-      <h1 class="entry-title"><a href="/blog/2015/12/17/a-refactoring-process/">A Refactoring Process</a></h1>
-    
-    
-      <p class="meta">
-        
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
 
-
-
-
-<time class='entry-date' datetime='2015-12-17T09:29:21-05:00'><span class='date'><span class='date-month'>Dec</span> <span class='date-day'>17</span><span class='date-suffix'>th</span>, <span class='date-year'>2015</span></span> <span class='time'>9:29 am</span></time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>For my final project, my group members and I were creating an app that would track prices of a selected item over time. Shoppers could add their items to a closet and &ldquo;follow&rdquo; other fellow shoppers. So there was a little bit of a social media aspect to it. This was tracked by an activity feed. Initially, I was just concerned with getting it working and because of that, my view really realllyyyy suffered.</p>
+  
+  <entry>
+    <title type="html"><![CDATA[A Refactoring Process]]></title>
+    <link href="http://heatherlim.github.io/blog/2015/12/17/a-refactoring-process/"/>
+    <updated>2015-12-17T09:29:21-05:00</updated>
+    <id>http://heatherlim.github.io/blog/2015/12/17/a-refactoring-process</id>
+    <content type="html"><![CDATA[<p>For my final project, my group members and I were creating an app that would track prices of a selected item over time. Shoppers could add their items to a closet and &ldquo;follow&rdquo; other fellow shoppers. So there was a little bit of a social media aspect to it. This was tracked by an activity feed. Initially, I was just concerned with getting it working and because of that, my view really realllyyyy suffered.</p>
 
 <p>Check out all this logic in my view:</p>
 
@@ -424,35 +355,15 @@
 <p>It&rsquo;s already looking a lot better, half the size it was before and way more readable.</p>
 
 <p>Refactoring is definitely a process for me and it involves many little edits along the way.</p>
-</div>
+]]></content>
+  </entry>
   
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2015/11/09/methods-of-sorting/">Methods of Sorting and a Bit of Trailing Around From There</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-<time class='entry-date' datetime='2015-11-09T22:14:16-05:00'><span class='date'><span class='date-month'>Nov</span> <span class='date-day'>9</span><span class='date-suffix'>th</span>, <span class='date-year'>2015</span></span> <span class='time'>10:14 pm</span></time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>While working on my sorting program, I came across several interesting methods that I didn&rsquo;t know before. While I haven&rsquo;t used any of them in my project thus far, I still found them pretty cool. From there I normally go on long google crawls until sometimes I learn things completely unrelated but still pretty cool. So this blog post is about my train of thought and how I get from sorting to something else entirely.</p>
+  <entry>
+    <title type="html"><![CDATA[Methods of Sorting and a Bit of Trailing Around From There]]></title>
+    <link href="http://heatherlim.github.io/blog/2015/11/09/methods-of-sorting/"/>
+    <updated>2015-11-09T22:14:16-05:00</updated>
+    <id>http://heatherlim.github.io/blog/2015/11/09/methods-of-sorting</id>
+    <content type="html"><![CDATA[<p>While working on my sorting program, I came across several interesting methods that I didn&rsquo;t know before. While I haven&rsquo;t used any of them in my project thus far, I still found them pretty cool. From there I normally go on long google crawls until sometimes I learn things completely unrelated but still pretty cool. So this blog post is about my train of thought and how I get from sorting to something else entirely.</p>
 
 <p>The first two methods I played around with were array methods called permutation and combination.</p>
 
@@ -666,35 +577,15 @@
 <a href = "http://apidock.com/ruby/Enumerable/each_slice">each slice</a><br>
 <a href = "http://www.garethrees.co.uk/2013/05/04/p-vs-puts-vs-print-in-ruby/">difference between p, puts and print</a><br>
 <a href = "https://github.com/ssaunier/round_robin_tournament">round robin gem</a></p>
-</div>
+]]></content>
+  </entry>
   
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2015/10/25/my-first-post-on-octopress/">Things Coming Round Again and the Importance of Thinking Before Coding</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-<time class='entry-date' datetime='2015-10-25T20:44:04-04:00'><span class='date'><span class='date-month'>Oct</span> <span class='date-day'>25</span><span class='date-suffix'>th</span>, <span class='date-year'>2015</span></span> <span class='time'>8:44 pm</span></time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>I&rsquo;m still working on my cute random group sample code because spending hours solving a &ldquo;problem&rdquo; that probably takes up just ten minutes of your time doing manually is a fun thing to do. It really is.</p>
+  <entry>
+    <title type="html"><![CDATA[Things Coming Round Again and the Importance of Thinking Before Coding]]></title>
+    <link href="http://heatherlim.github.io/blog/2015/10/25/my-first-post-on-octopress/"/>
+    <updated>2015-10-25T20:44:04-04:00</updated>
+    <id>http://heatherlim.github.io/blog/2015/10/25/my-first-post-on-octopress</id>
+    <content type="html"><![CDATA[<p>I&rsquo;m still working on my cute random group sample code because spending hours solving a &ldquo;problem&rdquo; that probably takes up just ten minutes of your time doing manually is a fun thing to do. It really is.</p>
 
 <p>Anyway, it has made a lot of progress from before. I remembered that I was so uncomfortable with classes two weeks ago&hellip; and now&hellip; well I&rsquo;m still not as comfortable as I&rsquo;d like to be but I&rsquo;m actually using them now which is a plus. Something I learned while working on this is that sometimes the best way to solve a problem is the simplest approach. I was so excited about using .sample that I ignored some of the more obvious methods to use. Instead, I used .sample and .pop to pull random people from the array.</p>
 
@@ -819,36 +710,16 @@
 <p>But then I realized that my problem was a symptom of not thinking ahead. If I were going to list out all possible unique combinations, why the hell was I randomizing it? Instead, I needed a method that would pick out the groups in the exact same way each time.</p>
 
 <p>So thinking ahead would have saved me a lot of time though in the end I still learned a lot. Though just for more practice I decided to try make my program into a webapp to get more familiar with sinatra. The final result is a page that would show groups and their random distribution whenever it gets refreshed. Eventually I&rsquo;d like to make a form where people can simply input the number of groups they want and the people they want to sort.</p>
-</div>
+]]></content>
+  </entry>
   
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2015/10/06/first-blog-post/">Why I Had Problems With Arrays/Hashes/Pigeons... (and What Else I Learned)</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-<time class='entry-date' datetime='2015-10-06T21:04:50-04:00'><span class='date'><span class='date-month'>Oct</span> <span class='date-day'>6</span><span class='date-suffix'>th</span>, <span class='date-year'>2015</span></span> <span class='time'>9:04 pm</span></time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><center>
-<img src ="/images/pigeon_photo.jpg" width ="300">
+  <entry>
+    <title type="html"><![CDATA[Why I Had Problems With Arrays/Hashes/Pigeons... (and What Else I Learned)]]></title>
+    <link href="http://heatherlim.github.io/blog/2015/10/06/first-blog-post/"/>
+    <updated>2015-10-06T21:04:50-04:00</updated>
+    <id>http://heatherlim.github.io/blog/2015/10/06/first-blog-post</id>
+    <content type="html"><![CDATA[<center>
+<img src ="http://heatherlim.github.io/images/pigeon_photo.jpg" width ="300">
 </center>
 
 
@@ -875,7 +746,7 @@
 <p>It&rsquo;s a step by step process that I guess I could read as for each item in the array, do this to that item. And that started to make it clearer for me rather than what I thinking before. That it was some kind of magic thing that did something all at once. Figuring out the plain English equivalent made it also easier for me to finish the pigeon hash lab where we had to sort out pigeons by their names and attributes. The tricky part was understanding what exactly you were getting between those ||.</p>
 
 <center>
-<img src ="/images/pigeon_box.jpg" width ="300">
+<img src ="http://heatherlim.github.io/images/pigeon_box.jpg" width ="300">
 </center>
 
 
@@ -944,80 +815,7 @@
 <p>So hopefully completing this mini program will help me out further with iteration and sorting. In any case, maybe I&rsquo;ll be qualified enough as an entry-level pigeon sorter.</p>
 
 <p>My current trouble is now with classes. So hopefully by the next time I make another post I&rsquo;ll be confident enough to write a little about it.</p>
-</div>
+]]></content>
+  </entry>
   
-  
-
-
-    </article>
-  
-  <div class="pagination">
-    
-    <a href="/blog/archives">Blog Archives</a>
-    
-  </div>
-</div>
-<aside class="sidebar">
-  
-    <section>
-  <h1>Recent Posts</h1>
-  <ul id="recent_posts">
-    
-      <li class="post">
-        <a href="/blog/2015/12/17/a-refactoring-process/">A Refactoring Process</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2015/11/09/methods-of-sorting/">Methods of Sorting and a Bit of Trailing Around From There</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2015/10/25/my-first-post-on-octopress/">Things Coming Round Again and the Importance of Thinking Before Coding</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2015/10/06/first-blog-post/">Why I Had Problems With Arrays/Hashes/Pigeons... (and What Else I Learned)</a>
-      </li>
-    
-  </ul>
-</section>
-
-
-
-
-
-  
-</aside>
-
-    </div>
-  </div>
-  <footer role="contentinfo"><p>
-  Copyright &copy; 2015 - Your Name -
-  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
-</p>
-
-</footer>
-  
-
-
-
-
-
-
-
-  <script type="text/javascript">
-    (function(){
-      var twitterWidgets = document.createElement('script');
-      twitterWidgets.type = 'text/javascript';
-      twitterWidgets.async = true;
-      twitterWidgets.src = '//platform.twitter.com/widgets.js';
-      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
-    })();
-  </script>
-
-
-
-
-
-</body>
-</html>
+</feed>
