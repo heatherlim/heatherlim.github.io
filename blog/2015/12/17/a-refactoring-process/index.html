@@ -1,0 +1,500 @@
+
+<!DOCTYPE HTML>
+<html>
+<head>
+	<script data-cfasync="false" type="text/javascript" src="//use.typekit.net/axj3cfp.js"></script>
+	<script data-cfasync="false" type="text/javascript">try{Typekit.load();}catch(e){}</script>
+	<meta charset="utf-8">
+	<title>A Refactoring Process  | Code n' Stuff</title>
+
+<meta name="author" content="Heather Lim"> 
+
+<meta name="description" content="For my final project, my group members and I were creating an app that would track prices of a selected item over time. Shoppers could add their &hellip;"> <meta name="keywords" content="">
+
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+	<link href="/atom.xml" rel="alternate" title="Code n' Stuff" type="application/atom+xml">
+	<link rel="canonical" href="">
+	<link href="/favicon.png" rel="shortcut icon">
+	<link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+	<link href="/stylesheets/font-awesome.min.css" rel="stylesheet" type="text/css">
+	<!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+	<script type="text/javascript" src="/javascripts/jquery.fancybox.pack.js"></script>
+
+<script language="Javascript" type="text/javascript">
+$(document).ready(
+  function() {
+    (function($) {
+      $(".fancybox[data-content-id]").each(function() {
+        this.href = $(this).data('content-id');
+      });
+      $(".fancybox").fancybox({
+        beforeLoad: function() {
+          var el, 
+              id = $(this.element).data('title-id');
+
+          if (id) {
+            el = $('#' + id);
+
+            if (el.length) {
+              this.title = el.html();
+            }
+          }
+          if ($(this).data('content')) {
+            this.content = $(this).data('content');
+          }
+        },
+        helpers: {
+          title: {
+            type: 'inside'
+          }
+        }
+      });
+    })(jQuery);
+  }
+);
+</script>
+
+	
+</head>
+
+
+
+<body>
+	<header id="header" class="inner"><h1><a href="/">Code n' Stuff</a></h1>
+<h4>Heather's Technical Blog</h4>
+
+<nav id="main-nav">
+<ul>
+	<li><a href="/">Blog</a></li>
+	<li><a href="/archives">Archive</a></li>
+  <li><a href ="http://www.heather-lim.com">Website</a></li>
+  <li><a href ="http://www.linkedin.com/in/heatherlim">LinkedIn</a></li>
+</ul>
+</nav>
+
+<nav id="mobile-nav">
+	<div class="alignleft menu">
+		<a class="button">Menu</a>
+		<div class="container">
+<ul>
+	<li><a href="/">Blog</a></li>
+	<li><a href="/archives">Archive</a></li>
+  <li><a href ="http://www.heather-lim.com">Website</a></li>
+  <li><a href ="http://www.linkedin.com/in/heatherlim">LinkedIn</a></li>
+</ul>
+</div>
+	</div>
+	<div class="alignright search">
+		<a class="button"></a>
+		<div class="container">
+			<form action="https://www.google.com/search" method="get">
+				<input type="text" name="q" results="0">
+				<input type="hidden" name="q" value="site:heatherlim.github.io">
+			</form>
+		</div>
+	</div>
+</nav>
+
+
+</header>
+
+	<div id="content" class="inner"><article class="post">
+	<h2 class="title">A Refactoring Process</h2>
+	<div class="entry-content"><p>For my final project, my group members and I were creating an app that would track prices of a selected item over time. Shoppers could add their items to a closet and &ldquo;follow&rdquo; other fellow shoppers. So there was a little bit of a social media aspect to it. This was tracked by an activity feed. Initially, I was just concerned with getting it working and because of that, my view really realllyyyy suffered.</p>
+
+<p>Check out all this logic in my view:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>&lt;% @user.activity_feed.each do |activity| %&gt;
+</span><span class='line'>
+</span><span class='line'>          &lt;br&gt;&lt;br&gt;
+</span><span class='line'>          &lt;strong&gt;
+</span><span class='line'>            &lt;% if current_user.username == activity.user.username %&gt;
+</span><span class='line'>                You
+</span><span class='line'>            &lt;% else %&gt;
+</span><span class='line'>                &lt;%= link_to activity.user.username, activity.user %&gt;
+</span><span class='line'>            &lt;% end %&gt;
+</span><span class='line'>          &lt;/strong&gt;
+</span><span class='line'>          &lt;br&gt;
+</span><span class='line'>          &lt;% if activity.trackable_type == "Closet" && activity.action == "create" %&gt;
+</span><span class='line'>              &lt;em class="text-muted"&gt;created closet &lt;/em&gt; &lt;%= activity.trackable_name %&gt;&lt;br&gt;
+</span><span class='line'>              &lt;%= link_to closet_like_path(user_id: current_user.id, id: Closet.find_by(id: activity.trackable_id)), method: :put do %&gt;
+</span><span class='line'>                  Like:
+</span><span class='line'>                  &lt;%= activity.user.closets.find_by(name: activity.trackable_name).get_likes.size %&gt;
+</span><span class='line'>              &lt;% end %&gt;
+</span><span class='line'>
+</span><span class='line'>          &lt;% elsif activity.trackable_type == "Closet" && activity.action == "destroy" %&gt;
+</span><span class='line'>              &lt;em class="text-muted"&gt;deleted closet &lt;/em&gt; &lt;%= activity.trackable_name %&gt;
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'>          &lt;% elsif activity.trackable.class == Item && activity.action == "create" %&gt;
+</span><span class='line'>              &lt;em class="text-muted"&gt;Added&lt;/em&gt; &lt;%= activity.trackable_name %&gt;
+</span><span class='line'>              &lt;em class="text-muted"&gt;to&lt;/em&gt; &lt;%= activity.trackable_source %&gt;&lt;br&gt;
+</span><span class='line'>              &lt;%= link_to like_item_path(Item.find_by(id: activity.trackable_id)), method: :put do %&gt;
+</span><span class='line'>                  Like:
+</span><span class='line'>                  &lt;%= activity.user.items.find_by(name: activity.trackable_name).get_likes.size %&gt;
+</span><span class='line'>              &lt;% end %&gt;
+</span><span class='line'>
+</span><span class='line'>          &lt;% elsif activity.trackable.class == Item && activity.action == "destroy" %&gt;
+</span><span class='line'>
+</span><span class='line'>              &lt;em class="text-muted"&gt;Deleted&lt;/em&gt; &lt;%= activity.trackable_name %&gt;
+</span><span class='line'>              &lt;em class="text-muted"&gt;from&lt;/em&gt; &lt;%= activity.trackable_source %&gt;
+</span><span class='line'>
+</span><span class='line'>          &lt;% elsif activity.trackable.class == User && activity.action == "create" %&gt;
+</span><span class='line'>              &lt;em class="text-muted"&gt;followed&lt;/em&gt; &lt;%= activity.trackable.username %&gt;
+</span><span class='line'>
+</span><span class='line'>          &lt;% elsif activity.trackable.class == User && activity.action == "destroy" %&gt;
+</span><span class='line'>              &lt;em class="text-muted"&gt;unfollowed&lt;/em&gt; &lt;%= activity.trackable.username %&gt;
+</span><span class='line'>          &lt;% end %&gt;
+</span><span class='line'>
+</span><span class='line'>      &lt;% end %&gt;
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>and&hellip; congratz. You made it to the end. It&rsquo;s kinda gross and awful. So let&rsquo;s think about how to fix that. First off, the activity feed was living in the boards index. I decided to move it over to a partial so the boards index.html.erb page now would just show this:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'> &lt;%= render partial: 'boards/activity_feed', locals: {user: @user}%&gt;</span></code></pre></td></tr></table></div></figure>
+
+
+<p>But that still doesn&rsquo;t solve all that logic in the view! So right now I&rsquo;m thinking that I require a view object of some sort to handle the logic&hellip;</p>
+
+<p>One issue that cropped up is the styling. When a user adds an item to a closet, they should get a message that would kinda look like this:</p>
+
+<p><em>added</em> mediocre rubber pants <em>to</em> whatever closet</p>
+
+<p>How was I supposed to selectively add styling to a whole message?</p>
+
+<p>So at first I thought oh great all I have to do is put this in the view object:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>class ActivityFeed
+</span><span class='line'>
+</span><span class='line'>  def self.message(activity)
+</span><span class='line'>   if activity.trackable_type == "Closet" && activity.action == "create" 
+</span><span class='line'>      "&lt;em class = 'text-muted'&gt;created closet&lt;/em&gt; #{activity.trackable_name}" 
+</span><span class='line'>
+</span><span class='line'>      elsif activity.trackable_type == "Closet" && activity.action == "destroy"
+</span><span class='line'>      "&lt;em class = 'text-muted'&gt;deleted closet&lt;/em&gt; #{activity.trackable_name}" 
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'>      elsif activity.trackable_type == "Item" && activity.action == "create"
+</span><span class='line'>      "&lt;em class = 'text-muted'&gt;added&lt;/em&gt; #{activity.trackable_name} &lt;em class = 'text-muted'&gt;to&lt;/em&gt; #{activity.trackable_source}" 
+</span><span class='line'>      
+</span><span class='line'>      elsif activity.trackable_type == "Item" && activity.action == "destroy"
+</span><span class='line'>      "&lt;em class = 'text-muted'&gt;deleted&lt;/em&gt; #{activity.trackable_name} &lt;em class = 'text-muted'&gt;from&lt;/em&gt; #{activity.trackable_source}"
+</span><span class='line'>
+</span><span class='line'>      elsif activity.trackable_type == "User" && activity.action == "create"
+</span><span class='line'>      "&lt;em class = 'text-muted'&gt;followed&lt;/em&gt; #{activity.trackable.username}" 
+</span><span class='line'>  
+</span><span class='line'>      elsif activity.trackable_type == "User" && activity.action == "destroy"
+</span><span class='line'>      "&lt;em class = 'text-muted'&gt;unfollowed&lt;/em&gt; #{activity.trackable.username}"
+</span><span class='line'>      
+</span><span class='line'>  end
+</span><span class='line'>end
+</span><span class='line'>
+</span><span class='line'>end</span></code></pre></td></tr></table></div></figure>
+
+
+<p>and then all I have to do is call html_safe on the partial</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>&lt;%@user.activity_feed.each do |activity|%&gt;
+</span><span class='line'>    &lt;br&gt;&lt;br&gt;
+</span><span class='line'>    &lt;strong&gt;
+</span><span class='line'>    &lt;% if current_user.username == activity.user.username %&gt;
+</span><span class='line'>    You
+</span><span class='line'>    &lt;%else%&gt;
+</span><span class='line'>   &lt;%= link_to activity.user.username, activity.user %&gt;
+</span><span class='line'>   &lt;% end %&gt;
+</span><span class='line'>  &lt;/strong&gt;
+</span><span class='line'>   &lt;br&gt; 
+</span><span class='line'>    &lt;%=ActivityFeed.message(activity).html_safe%&gt;
+</span><span class='line'>&lt;%end%&gt;
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>But&hellip;. wait up, we don&rsquo;t want to have any html in our view object. It&rsquo;s kinda icky. One of the points of the view object is to separate the html from the logic.</p>
+
+<p>But the styling was giving me a lot of issues. How could I make sure that only some text remained muted when I was getting back an entire string?</p>
+
+<p>The solution for me was to add more methods into my view object. And that&rsquo;s ok.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>class ActivityFeed
+</span><span class='line'>
+</span><span class='line'>  attr_accessor :activity
+</span><span class='line'>
+</span><span class='line'>  def initialize(activity)
+</span><span class='line'>    @activity = activity
+</span><span class='line'>  end
+</span><span class='line'>
+</span><span class='line'>  def actionmessage
+</span><span class='line'>    if activity.trackable_type == "Closet" && activity.action == "create"
+</span><span class='line'>      "created closet"
+</span><span class='line'>
+</span><span class='line'>      elsif activity.trackable_type == "Closet" && activity.action == "destroy"
+</span><span class='line'>      "deleted closet" 
+</span><span class='line'>
+</span><span class='line'>      elsif activity.trackable_type == "Item" && activity.action == "create"
+</span><span class='line'>      "added" 
+</span><span class='line'>      
+</span><span class='line'>      elsif activity.trackable_type == "Item" && activity.action == "destroy"
+</span><span class='line'>      "deleted"
+</span><span class='line'>
+</span><span class='line'>      elsif activity.trackable_type == "User" && activity.action == "create"
+</span><span class='line'>      "followed" 
+</span><span class='line'>  
+</span><span class='line'>      elsif activity.trackable_type == "User" && activity.action == "destroy"
+</span><span class='line'>      "unfollowed" 
+</span><span class='line'>    end
+</span><span class='line'>  end
+</span><span class='line'>
+</span><span class='line'>  def subject
+</span><span class='line'>    activity.trackable_name
+</span><span class='line'>  end
+</span><span class='line'>
+</span><span class='line'>  def preposition
+</span><span class='line'>    if activity.action == "create"
+</span><span class='line'>      "to"
+</span><span class='line'>    else
+</span><span class='line'>      "from"
+</span><span class='line'>    end
+</span><span class='line'>  end
+</span><span class='line'>
+</span><span class='line'>  def closet
+</span><span class='line'>    activity.trackable_source
+</span><span class='line'>  end
+</span><span class='line'>
+</span><span class='line'>end</span></code></pre></td></tr></table></div></figure>
+
+
+<p>I also added an attribute accessor to lessen the repetition in the partial when I found myself re-typing ActivityFeed.trackable_type one too many times. So this is what the partial looks like now:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>&lt;%@user.activity_feed.each do |activity|%&gt;
+</span><span class='line'>&lt;% activityview = ActivityFeed.new(activity) %&gt;
+</span><span class='line'>    &lt;br&gt;&lt;br&gt;
+</span><span class='line'>    &lt;strong&gt;
+</span><span class='line'>    &lt;% if current_user.username == activity.user.username %&gt;
+</span><span class='line'>    You
+</span><span class='line'>    &lt;%else%&gt;
+</span><span class='line'>   &lt;%= link_to activity.user.username, activity.user %&gt;
+</span><span class='line'>   &lt;% end %&gt;
+</span><span class='line'>  &lt;/strong&gt;
+</span><span class='line'>   &lt;br&gt; 
+</span><span class='line'>    &lt;% if activity.trackable_type == "Item" %&gt;
+</span><span class='line'>
+</span><span class='line'>      &lt;em class = 'text-muted'&gt;&lt;%=activityview.actionmessage%&gt;&lt;/em&gt; &lt;%=activityview.subject%&gt; &lt;em class = 'text-muted'&gt; &lt;%= activityview.preposition %&gt; &lt;/em&gt;&lt;%=activityview.closet%&gt;
+</span><span class='line'>    &lt;% else %&gt;
+</span><span class='line'>      &lt;em class = 'text-muted'&gt; &lt;%=activityview.actionmessage%&gt;&lt;/em&gt; &lt;%=activityview.subject%&gt;
+</span><span class='line'>    &lt;% end %&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;%end%&gt;</span></code></pre></td></tr></table></div></figure>
+
+
+<p>It&rsquo;s already looking a lot better, half the size it was before and way more readable.</p>
+
+<p>Refactoring is definitely a process for me and it involves many little edits along the way.</p>
+</div>
+
+
+<div class="meta">
+	<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2015-12-17T09:29:21-05:00" pubdate data-updated="true"></time></div>
+	
+
+
+	
+</div></article>
+
+	<div class="share">
+	<div class="addthis_toolbox addthis_default_style ">
+	
+	
+	<a class="addthis_button_tweet"></a>
+	
+	
+<!---	<a class="addthis_counter addthis_pill_style"></a> --->
+	</div>
+  <script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid="></script>
+</div>
+
+
+</div>
+	<footer id="footer" class="inner">Copyright &copy; 2015
+
+    Heather Lim
+
+<br>
+Powered by Octopress.
+</footer>
+	<script src="/javascripts/slash.js"></script>
+<script src="/javascripts/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+	$('.fancybox').fancybox();
+})(jQuery);
+</script> <!-- Delete or comment this line to disable Fancybox -->
+
+
+
+
+
+
+</body>
+</html>

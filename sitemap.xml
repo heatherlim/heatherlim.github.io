@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>http://heatherlim.github.io/blog/2015/12/02/project-eulers-longest-collatz-sequence-problem/</loc>
-    <lastmod>2015-12-02T22:40:51-05:00</lastmod>
+    <loc>http://heatherlim.github.io/blog/2015/12/17/a-refactoring-process/</loc>
+    <lastmod>2015-12-17T09:29:21-05:00</lastmod>
   </url>
   <url>
     <loc>http://heatherlim.github.io/blog/2015/11/09/methods-of-sorting/</loc>
@@ -17,10 +17,13 @@
     <lastmod>2015-10-06T21:04:50-04:00</lastmod>
   </url>
   <url>
-    <loc>http://heatherlim.github.io/404.html</loc>
+    <loc>http://heatherlim.github.io/blog/archives/</loc>
   </url>
   <url>
-    <loc>http://heatherlim.github.io/blog/archives/</loc>
+    <loc>http://heatherlim.github.io/archives/</loc>
+  </url>
+  <url>
+    <loc>http://heatherlim.github.io/blog/</loc>
   </url>
   <url>
     <loc>http://heatherlim.github.io/</loc>
