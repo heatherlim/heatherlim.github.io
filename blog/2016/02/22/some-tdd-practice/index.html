@@ -1,0 +1,333 @@
+
+<!DOCTYPE HTML>
+<html>
+<head>
+	<script data-cfasync="false" type="text/javascript" src="//use.typekit.net/axj3cfp.js"></script>
+	<script data-cfasync="false" type="text/javascript">try{Typekit.load();}catch(e){}</script>
+	<meta charset="utf-8">
+	<title>Some TDD Practice  | Code n' Stuff</title>
+
+<meta name="author" content="Heather Lim"> 
+
+<meta name="description" content="Today I&rsquo;m going to be practicing my TDD by implementing a set in Ruby using arrays. While the Set class in Ruby uses hashes as storage for &hellip;"> <meta name="keywords" content="">
+
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+	<link href="/atom.xml" rel="alternate" title="Code n' Stuff" type="application/atom+xml">
+	<link rel="canonical" href="">
+	<link href="/favicon.png" rel="shortcut icon">
+	<link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+	<link href="/stylesheets/font-awesome.min.css" rel="stylesheet" type="text/css">
+	<!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+	<script type="text/javascript" src="/javascripts/jquery.fancybox.pack.js"></script>
+
+<script language="Javascript" type="text/javascript">
+$(document).ready(
+  function() {
+    (function($) {
+      $(".fancybox[data-content-id]").each(function() {
+        this.href = $(this).data('content-id');
+      });
+      $(".fancybox").fancybox({
+        beforeLoad: function() {
+          var el, 
+              id = $(this.element).data('title-id');
+
+          if (id) {
+            el = $('#' + id);
+
+            if (el.length) {
+              this.title = el.html();
+            }
+          }
+          if ($(this).data('content')) {
+            this.content = $(this).data('content');
+          }
+        },
+        helpers: {
+          title: {
+            type: 'inside'
+          }
+        }
+      });
+    })(jQuery);
+  }
+);
+</script>
+
+	
+</head>
+
+
+
+<body>
+	<header id="header" class="inner"><h1><a href="/">Code n' Stuff</a></h1>
+<h4>Heather's Technical Blog</h4>
+
+<nav id="main-nav">
+<ul>
+	<li><a href="/">Blog</a></li>
+	<li><a href="/archives">Archive</a></li>
+  <li><a href ="http://www.heather-lim.com">Website</a></li>
+  <li><a href ="http://www.linkedin.com/in/heatherlim">LinkedIn</a></li>
+</ul>
+</nav>
+
+<nav id="mobile-nav">
+	<div class="alignleft menu">
+		<a class="button">Menu</a>
+		<div class="container">
+<ul>
+	<li><a href="/">Blog</a></li>
+	<li><a href="/archives">Archive</a></li>
+  <li><a href ="http://www.heather-lim.com">Website</a></li>
+  <li><a href ="http://www.linkedin.com/in/heatherlim">LinkedIn</a></li>
+</ul>
+</div>
+	</div>
+	<div class="alignright search">
+		<a class="button"></a>
+		<div class="container">
+			<form action="https://www.google.com/search" method="get">
+				<input type="text" name="q" results="0">
+				<input type="hidden" name="q" value="site:heatherlim.github.io">
+			</form>
+		</div>
+	</div>
+</nav>
+
+
+</header>
+
+	<div id="content" class="inner"><article class="post">
+	<h2 class="title">Some TDD Practice</h2>
+	<div class="entry-content"><p>Today I&rsquo;m going to be practicing my TDD by implementing a set in Ruby using arrays. While the Set class in Ruby uses hashes as storage for various reasons, this is just for practicing a TDD way of coding and also practice for writing tests in RSpec. So I&rsquo;m not trying to demonstrate a great way of implementing sets or that this is a better way to do sets (spoiler: It&rsquo;s really not).</p>
+
+<p><strong>Some things to know about Sets:</strong>
+<br>
+- Order doesn&rsquo;t matter (unordered)
+<br>
+- Contains unique values</p>
+
+<p>So the TDD steps&hellip; you would want to write tests first and let that guide how you write your code. You would first write a simple test, run it, see it fail and then write minimal code to make it pass (The simplest way you can make it pass). Then you move on to write the next test.</p>
+
+<p>First things first, we are going to write a test. We are going to say what the test is describing. It will be something like this:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>describe Set do
+</span><span class='line'>
+</span><span class='line'>end</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Now we are going to think about what kind of method we want the set to have.</p>
+
+<p>For a quick example, let&rsquo;s say you want to convert the set into an array. So we are going to write a test for that.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>describe Set do
+</span><span class='line'>
+</span><span class='line'>  describe "#to_array" do
+</span><span class='line'>      it "returns an array of all elements in the set" do
+</span><span class='line'>        @set = Set.new([1])
+</span><span class='line'>        expect(@set.to_array).to contain_exactly(1)
+</span><span class='line'>      end
+</span><span class='line'>  end
+</span><span class='line'>
+</span><span class='line'>end</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Note: This test is failing</p>
+
+<p><img src="/images/testfail.png"></p>
+
+<p>(You can ignore the number &ldquo;3)&rdquo; there. I screenshotted the fail message only after I finished this exercise so I already have a couple tests written)</p>
+
+<p>As we haven&rsquo;t really written anything, the test will fail when we run it which is exactly what we want. Now we have to write some code to make the test pass.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>class Set
+</span><span class='line'>
+</span><span class='line'>  def initialize(array)
+</span><span class='line'>    @array = array
+</span><span class='line'>  end
+</span><span class='line'>
+</span><span class='line'>  def to_array
+</span><span class='line'>    @array
+</span><span class='line'>  end
+</span><span class='line'>
+</span><span class='line'>end</span></code></pre></td></tr></table></div></figure>
+
+
+<p>With this, the test now passes. Great!</p>
+
+<p>Now, we can add more stuff in. Let&rsquo;s write another test to make sure only arrays can get passed as arguments. As Ruby is not a type language, we cannot specify what data types we accept as an argument.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>it "accepts only an array as an argument" do
+</span><span class='line'>    expect(Set.new([1,2,3]).to_array).to contain_exactly(1,2,3)
+</span><span class='line'>    expect(Set.new(1).to_array).to contain_exactly()
+</span><span class='line'>    expect(Set.new("a").to_array).to contain_exactly()
+</span><span class='line'>end</span></code></pre></td></tr></table></div></figure>
+
+
+<p>The test expects that if the argument is not an array, a set is made but it will be an empty set. It&rsquo;s important to note that our task is to write tests that fail. So even though the first expect line we write will pass, the other two will not.</p>
+
+<p>To make this next step pass:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>def initialize(array)
+</span><span class='line'>  if array.class != Array
+</span><span class='line'>    @array = []
+</span><span class='line'>  else
+</span><span class='line'>    @array = array
+</span><span class='line'>  end
+</span><span class='line'>end</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Now we can worry about one of the definitions of a set - that it contains only unique values. And we can write a test for that.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>it "will create a set with unique elements" do
+</span><span class='line'>    expect(Set.new([1, 1, 2]).to_array).to contain_exactly(1, 2) 
+</span><span class='line'>end
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>To make this pass, we can call .uniq on the argument like so:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>def initialize(array)
+</span><span class='line'>  if array.class != Array
+</span><span class='line'>    @array = []
+</span><span class='line'>  else
+</span><span class='line'>    @array = array.uniq
+</span><span class='line'>  end
+</span><span class='line'>end</span></code></pre></td></tr></table></div></figure>
+
+
+<p>.uniq might not be the best way to do things, but it is important to keep in mind that at the moment, we are just concerned with doing the minimal to make the test pass.</p>
+
+<p>I won&rsquo;t go through each and every one of my tests but eventually I found myself creating new sets for each test. So in my test file, I ended up doing:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>before :each do
+</span><span class='line'>  @shortset = Set.new([1])
+</span><span class='line'>  @mediumset = Set.new([1, 2, 3, 4, 5, 6].shuffle)
+</span><span class='line'>  @mediumset2 = Set.new([4, 5, 6, 7, 8, 9].shuffle)
+</span><span class='line'>end</span></code></pre></td></tr></table></div></figure>
+
+
+<p>This way I won&rsquo;t have to keep making new tests. Before each means that before each test, that block of code will run. So less repetition! I added the .shuffle because sets are not ordered. Before that, I had put in arrays in numerical order and didn&rsquo;t realize some tests actually failed when numerical order was not in place. Ideally, I think something I would change are the names of the sets as they aren&rsquo;t very descriptive. There&rsquo;s also a bit of refactoring to be done but the idea of TDD is to do the minimum to pass the tests and then write more tests that you expect to fail.</p>
+
+<p>Overall, there&rsquo;s still some refactoring to be done but I quite like the practice I got with writing tests before the actual coding. I like TDD because it forces you to think before you code. You have to think about what you will be doing. And once the tests pass (there really is no better feeling&hellip;), you know that your job is done.</p>
+
+<p>I&rsquo;m still tinkering around with it (with refactoring and such) but the full code can be viewed on github: <a href = "https://github.com/heatherlim/TDDPractice">HERE</a></p>
+</div>
+
+
+<div class="meta">
+	<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2016-02-22T13:28:26-05:00" pubdate data-updated="true"></time></div>
+	
+
+<div class="tags">
+
+	<a class='category' href='/blog/categories/practice/'>practice</a>, <a class='category' href='/blog/categories/rspec/'>rspec</a>, <a class='category' href='/blog/categories/tdd/'>tdd</a>
+
+</div>
+
+
+	
+</div></article>
+
+	<div class="share">
+	<div class="addthis_toolbox addthis_default_style ">
+	
+	
+	<a class="addthis_button_tweet"></a>
+	
+	
+<!---	<a class="addthis_counter addthis_pill_style"></a> --->
+	</div>
+  <script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid="></script>
+</div>
+
+
+</div>
+	<footer id="footer" class="inner">Copyright &copy; 2016
+
+    Heather Lim
+
+<br>
+Powered by Octopress.
+</footer>
+	<script src="/javascripts/slash.js"></script>
+<script src="/javascripts/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+	$('.fancybox').fancybox();
+})(jQuery);
+</script> <!-- Delete or comment this line to disable Fancybox -->
+
+
+
+
+
+
+</body>
+</html>

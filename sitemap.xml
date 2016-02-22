@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>http://heatherlim.github.io/blog/2016/02/22/some-tdd-practice/</loc>
+    <lastmod>2016-02-22T13:28:26-05:00</lastmod>
+  </url>
+  <url>
     <loc>http://heatherlim.github.io/blog/2015/12/17/a-refactoring-process/</loc>
     <lastmod>2015-12-17T09:29:21-05:00</lastmod>
   </url>
@@ -30,5 +34,14 @@
   </url>
   <url>
     <loc>http://heatherlim.github.io/blog/categories/flatiron-school/</loc>
+  </url>
+  <url>
+    <loc>http://heatherlim.github.io/blog/categories/tdd/</loc>
+  </url>
+  <url>
+    <loc>http://heatherlim.github.io/blog/categories/rspec/</loc>
+  </url>
+  <url>
+    <loc>http://heatherlim.github.io/blog/categories/practice/</loc>
   </url>
 </urlset>
