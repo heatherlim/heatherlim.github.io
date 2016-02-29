@@ -6,9 +6,6 @@ comments: true
 categories: 
 - Flatiron School
 ---
-<center>
-<img src ="/images/pigeon_photo.jpg" width ="300">
-</center>
 Iteration was my first challenge that I didn't really know what to make of. I went through great pains to not use it. On the first lab where we had to write a method that could tel if a number was prime or not, instead of iterating through the whole array range to see if there were more than two zeroes (the array represented the number being divided by 1 to that particular number. So the first element in the array would be that number divided by one, the second element would be that number divided by two and so on... if the number was prime, the modulo should return only two 0s), I would instead sort the array and check if array[2] == 0. 
 
 So already by avoiding it, I made it harder for myself to pick up. It was probably the first method that didn't look to be in plain English for me. It was pretty abstract.
@@ -25,10 +22,6 @@ It didn't click until later that the word between the | | could be anything. In 
 It also helped me to visualize what's going on. Basically it was as though a pedantic person was going over each item in the array one by one and then executing whatever the instructions below told him to. So apple (or whatever is between the ||) would be equal to the string "apple 1" and then "apple 2" and so on...
 
 It's a step by step process that I guess I could read as for each item in the array, do this to that item. And that started to make it clearer for me rather than what I thinking before. That it was some kind of magic thing that did something all at once. Figuring out the plain English equivalent made it also easier for me to finish the pigeon hash lab where we had to sort out pigeons by their names and attributes. The tricky part was understanding what exactly you were getting between those ||. 
-
-<center>
-<img src ="/images/pigeon_box.jpg" width ="300">
-</center>
 
 Because I found iteration difficult, on my own time, I decided to make a cute program that would be able to take in a bunch of people and divide them into however many groups the user would want. The program would return different groups each time it was run.
 
