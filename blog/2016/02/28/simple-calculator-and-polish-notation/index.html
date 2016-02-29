@@ -1,0 +1,351 @@
+
+<!DOCTYPE HTML>
+<html>
+<head>
+	<script data-cfasync="false" type="text/javascript" src="//use.typekit.net/axj3cfp.js"></script>
+	<script data-cfasync="false" type="text/javascript">try{Typekit.load();}catch(e){}</script>
+	<meta charset="utf-8">
+	<title>Simple Calculator, Order of Operations, and Polish Notation  | Code n' Stuff</title>
+
+<meta name="author" content="Heather Lim"> 
+
+<meta name="description" content="One of the very first exercises I did as a coding exercise was creating a simple (and crappy) calculator. It was very basic and did not need to &hellip;"> <meta name="keywords" content="">
+
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+	<link href="/atom.xml" rel="alternate" title="Code n' Stuff" type="application/atom+xml">
+	<link rel="canonical" href="">
+	<link href="/favicon.png" rel="shortcut icon">
+	<link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+	<link href="/stylesheets/font-awesome.min.css" rel="stylesheet" type="text/css">
+	<!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+	<script type="text/javascript" src="/javascripts/jquery.fancybox.pack.js"></script>
+
+<script language="Javascript" type="text/javascript">
+$(document).ready(
+  function() {
+    (function($) {
+      $(".fancybox[data-content-id]").each(function() {
+        this.href = $(this).data('content-id');
+      });
+      $(".fancybox").fancybox({
+        beforeLoad: function() {
+          var el, 
+              id = $(this.element).data('title-id');
+
+          if (id) {
+            el = $('#' + id);
+
+            if (el.length) {
+              this.title = el.html();
+            }
+          }
+          if ($(this).data('content')) {
+            this.content = $(this).data('content');
+          }
+        },
+        helpers: {
+          title: {
+            type: 'inside'
+          }
+        }
+      });
+    })(jQuery);
+  }
+);
+</script>
+
+	
+</head>
+
+
+
+<body>
+	<header id="header" class="inner"><h1><a href="/">Code n' Stuff</a></h1>
+<h4>Heather's Technical Blog</h4>
+
+<nav id="main-nav">
+<ul>
+	<li><a href="/">Blog</a></li>
+	<li><a href="/archives">Archive</a></li>
+  <li><a href ="http://www.heather-lim.com">Website</a></li>
+  <li><a href ="http://www.linkedin.com/in/heatherlim">LinkedIn</a></li>
+</ul>
+</nav>
+
+<nav id="mobile-nav">
+	<div class="alignleft menu">
+		<a class="button">Menu</a>
+		<div class="container">
+<ul>
+	<li><a href="/">Blog</a></li>
+	<li><a href="/archives">Archive</a></li>
+  <li><a href ="http://www.heather-lim.com">Website</a></li>
+  <li><a href ="http://www.linkedin.com/in/heatherlim">LinkedIn</a></li>
+</ul>
+</div>
+	</div>
+	<div class="alignright search">
+		<a class="button"></a>
+		<div class="container">
+			<form action="https://www.google.com/search" method="get">
+				<input type="text" name="q" results="0">
+				<input type="hidden" name="q" value="site:heatherlim.github.io">
+			</form>
+		</div>
+	</div>
+</nav>
+
+
+</header>
+
+	<div id="content" class="inner"><article class="post">
+	<h2 class="title">Simple Calculator, Order of Operations, and Polish Notation</h2>
+	<div class="entry-content"><p>One of the very first exercises I did as a coding exercise was creating a simple (and crappy) calculator. It was very basic and did not need to consider order of operations. Below is a really basic example of what I mean:</p>
+
+<script> 
+$(function(){
+  var calculator = new Calculator();// write your solution here.
+});
+// classes are dots and ids are #
+function Calculator(){
+  // This is a listener that listens for everryyy button click
+  $('button').click(function(){
+    // Now when a button is clicked, we are in a scope deeper than window
+    // So when we call "this" we will get whatever button was clicked
+    // Instead of getting the window
+    if($(this).siblings('#result').length){
+      var number1 = $('#number1 > .number').text()
+      var number2 = $('#number2 > .number').text()
+      var operation = $('#operation').text()
+      var answer = eval([number1,operation,number2].join(''))
+      $('#result').text(answer)   
+    }else if(!$(this).siblings('#operation').length){    
+      var oldValue = $(this).siblings('h2').text()
+      var newValue = eval(oldValue + $(this).text() + 1)
+      $(this).siblings('h2').text(newValue)
+    } else if ($(this).siblings('#operation').length > 0) {
+      $(this).siblings('h2').text($(this).text())      
+    }
+  })
+}
+</script>
+
+
+
+
+<table border = 1 width = 600>
+<tr>
+  <td>
+    <div id="number1">
+    <h2 class="number">0</h2>
+    <button class="incr" style ="background-color: white; border: none; height: 17px; width: 17px; font-size: 16px; text-align: center;">+</button>
+    <button class="decr" style ="background-color: white; border: none; height: 17px; width: 17px; font-size: 16px; text-align: center;">-</button>
+    </div>
+  </td>
+  <td>
+    <div>
+    <h2 id="operation">+</h2>
+    <button id="add" style ="background-color: white; border: none; height: 17px; width: 17px; font-size: 16px; text-align: center;">+</button>
+    <button id="sub" style ="background-color: white; border: none; height: 17px; width: 17px; font-size: 16px; text-align: center;">-</button>
+    <button id="mult" style ="background-color: white; border: none; height: 17px; width: 17px; font-size: 16px; text-align: center;">*</button>
+    <button id="div" style ="background-color: white; border: none; height: 17px; width: 17px; font-size: 16px; text-align: center;">/</button>
+  </div>
+  </td>
+  <td>
+    <div id="number2">
+    <h2 class="number">0</h2>
+    <button class="incr" style ="background-color: white; border: none; height: 17px; width: 17px; font-size: 16px; text-align: center;">+</button>
+    <button class="decr" style ="background-color: white; border: none; height: 17px; width: 17px; font-size: 16px; text-align: center;">-</button>
+    </div>
+  </td>
+  <td>
+     <h2 id="result">0</h2>
+      <button id="equals" style ="background-color: white; border: none; height: 17px; width: 17px; font-size: 16px; text-align: center;">=</button>
+  </td>
+</tr>
+</table>
+
+
+<p>But what if you wanted to calculate using more than one operation? Or be even more flexible and let a user pass in a string to calculate? In this situation, order of operations becomes something to take note of. When researching this, I stumbled upon polish notation (also called prefix notation) and the use of stacks as a solution to this problem.</p>
+
+<p>Polish notation is a different way to write arithmatic. The operator is placed to the left of the operand. This was initially strange to me because I was used to infix notation. In infix, we place the operator in between the operands we are calculating. I did not realize there was any other way and infix was the most intuitive to me. It&rsquo;s the more conventional way we read expressions.</p>
+
+<p>An example of infix:<br>
+2 + 3</p>
+
+<p>An example of prefix:<br>
++ 2 3</p>
+
+<p>While infix might be easier for me to read, I found that when trying to make a calculator, prefix was easier for a computer. One reason is that the rules of order of operations becomes unnecessary with prefix. When trying to calculate infix, there are a lot of rules to keep in mind.</p>
+
+<p>For example:<br>
+(5 - 6) * 7</p>
+
+<p>We need to evaluate what is within the parenthesis first. Also, if there were no parenthesis, we would have to calculate 6 * 7 first as multiplication comes before subtraction. Parenthesis are very necessary in infix as they can change what an expression evaluates to with removal.</p>
+
+<p>The same expression however, when written in prefix does not need parenthesis:<br>
+* - 5 6 7</p>
+
+<p>The order in which a prefix is calculated is always going to be conveyed by how it is arranged. All prefix expressions are calculated in the same way. To further elaborate:</p>
+
+<p>With infix, finding the innermost expression to calculate first is difficult. It requires a lot of jumping around in the expression. <br>
+((15 / (7 - (1 + 1))) * 3) - (2 + (1 + 1))</p>
+
+<p>But if it was written in prefix:<br>
+- * / 15 - 7 + 1 1 3 + 2 + 1 1</p>
+
+<p>This prefix expression is calculated in the same way that our previous simple example (+ 2 3) is calculated. We do not even need to memorize the order of operations. Example below on what I mean.</p>
+
+<p>Calculating Prefix Step by Step:<br>
+- Read from right to left<br>
+- Look for two operands and their operator and evaluate them</p>
+
+<p>- * / 15 - 7 + 1 1 3 + 2 <strong>+ 1 1</strong></p>
+
+<p>Now we can evaluate them:<br>
+- * / 15 - 7 + 1 1 3 + 2 <strong>2</strong></p>
+
+<p>Repeat:<br>
+- * / 15 - 7 + 1 1 3 4</p>
+
+<p>Our next two operands and operators are selected again. From right to left, the two operands next to their operator will be:<br>
+- * / 15 - 7 <strong>+ 1 1</strong> 3 4<br>
+<em>(As you can see, from this example, just calculating prefix in this way does not need a knowledge of order of operations&hellip; there&rsquo;s no jumping around in an expression. You just have to follow <strong> one </strong> rule)</em></p>
+
+<p>This is what we have now:<br>
+- * / 15 <strong>- 7 2</strong> 3 4<br>
+We can see the next two to caclulate is - 7 2&hellip; and so on&hellip;<br>
+- * <strong>/ 15 5 </strong>3 4 <br>
+- <strong>* 3 3</strong> 4 <br>
+- 9 4 <br>
+And now&hellip;<br>
+The answer is <strong> 5 </strong></p>
+
+<p>I wrote a program in Ruby that calculates prefix. Here&rsquo;s a snippet of a part of its code (the other methods I didn&rsquo;t include because I felt they were self-explanatory):</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>def calculate_prefix
+</span><span class='line'>  stack = []
+</span><span class='line'>  # @arg is the prefix expression
+</span><span class='line'>  loopSize = @arg.count
+</span><span class='line'>    for i in 0..loopSize
+</span><span class='line'>    value = @arg.pop
+</span><span class='line'>      if operand?(value)
+</span><span class='line'>        stack &lt;&lt; value
+</span><span class='line'>      elsif operator?(value)
+</span><span class='line'>        operator1 = stack.pop
+</span><span class='line'>        operator2 = stack.pop
+</span><span class='line'>        stack &lt;&lt; compute(value, operator1, operator2)
+</span><span class='line'>      end
+</span><span class='line'>    end
+</span><span class='line'>    stack.compact.first
+</span><span class='line'>  end</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Notice I am making an array called stack. In Ruby, an array can pretty much function as a stack. In other languages, there is an actual stack datatype. Stack is a last-in-first-out data structure. You can make a Ruby implementation of a stack which RubyMonk demonstrates <a href = "https://rubymonk.com/learning/books/4-ruby-primer-ascent/chapters/33-advanced-arrays/lessons/86-stacks-and-queues">HERE</a>.</p>
+
+<p>Basically the last thing I push into a stack will be the first thing I can pull out. So if using a Ruby array, there are just two array methods I would use to simulate a stack. As demonstrated below.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'># adding to a stack
+</span><span class='line'>  stack &lt;&lt; something
+</span><span class='line'># retrieving from a stack
+</span><span class='line'>  stack.pop</span></code></pre></td></tr></table></div></figure>
+
+
+<p>You can tell I used both of those in my calculating prefix method.</p>
+
+<p>So an explanation of my method:
+I&rsquo;m reading the prefix expression from right to left, popping a value from it. If the value is an operand, I will be pushing it onto my stack. Otherwise, if it is an operator, I&rsquo;ll pop the first two elements in my stack and compute them before pushing them to the stack again.</p>
+
+<p>You can tell this is a lot easier than if I were to calculate infix directly.</p>
+
+<p>Prefix might not be the easiest way for me to read an expression but it makes it easier for me to deal with coding a simple calculator. It&rsquo;s convenience over convention.</p>
+
+<p>Reference:<br>
+<a href="https://en.wikipedia.org/wiki/Polish_notation"><a href="https://en.wikipedia.org/wiki/Polish_notation">https://en.wikipedia.org/wiki/Polish_notation</a></a></p>
+</div>
+
+
+<div class="meta">
+	<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2016-02-28T13:18:40-05:00" pubdate data-updated="true"></time></div>
+	
+
+<div class="tags">
+
+	<a class='category' href='/blog/categories/order-of-operations/'>order of operations</a>, <a class='category' href='/blog/categories/polish-notation/'>polish notation</a>, <a class='category' href='/blog/categories/prefix-notation/'>prefix notation</a>, <a class='category' href='/blog/categories/stack/'>stack</a>
+
+</div>
+
+
+	
+</div></article>
+
+	<div class="share">
+	<div class="addthis_toolbox addthis_default_style ">
+	
+	
+	<a class="addthis_button_tweet"></a>
+	
+	
+<!---	<a class="addthis_counter addthis_pill_style"></a> --->
+	</div>
+  <script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid="></script>
+</div>
+
+
+</div>
+	<footer id="footer" class="inner">Copyright &copy; 2016
+
+    Heather Lim
+
+<br>
+Powered by Octopress.
+</footer>
+	<script src="/javascripts/slash.js"></script>
+<script src="/javascripts/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+	$('.fancybox').fancybox();
+})(jQuery);
+</script> <!-- Delete or comment this line to disable Fancybox -->
+
+
+
+
+
+
+</body>
+</html>

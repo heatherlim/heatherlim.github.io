@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>http://heatherlim.github.io/blog/2016/02/28/simple-calculator-and-polish-notation/</loc>
+    <lastmod>2016-02-28T13:18:40-05:00</lastmod>
+  </url>
+  <url>
     <loc>http://heatherlim.github.io/blog/2016/02/22/some-tdd-practice/</loc>
     <lastmod>2016-02-22T13:28:26-05:00</lastmod>
   </url>
@@ -43,5 +47,17 @@
   </url>
   <url>
     <loc>http://heatherlim.github.io/blog/categories/practice/</loc>
+  </url>
+  <url>
+    <loc>http://heatherlim.github.io/blog/categories/polish-notation/</loc>
+  </url>
+  <url>
+    <loc>http://heatherlim.github.io/blog/categories/prefix-notation/</loc>
+  </url>
+  <url>
+    <loc>http://heatherlim.github.io/blog/categories/order-of-operations/</loc>
+  </url>
+  <url>
+    <loc>http://heatherlim.github.io/blog/categories/stack/</loc>
   </url>
 </urlset>
