@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>http://heatherlim.github.io/blog/2016/03/03/first-forays-with-gosu-that-one-dvd-logo-bouncing-on-the-tv-screen-thing/</loc>
+    <lastmod>2016-03-03T22:27:11-05:00</lastmod>
+  </url>
+  <url>
     <loc>http://heatherlim.github.io/blog/2016/02/28/simple-calculator-and-polish-notation/</loc>
     <lastmod>2016-02-28T13:18:40-05:00</lastmod>
   </url>
@@ -59,5 +63,11 @@
   </url>
   <url>
     <loc>http://heatherlim.github.io/blog/categories/stack/</loc>
+  </url>
+  <url>
+    <loc>http://heatherlim.github.io/blog/categories/just-for-fun/</loc>
+  </url>
+  <url>
+    <loc>http://heatherlim.github.io/blog/categories/gosu-library/</loc>
   </url>
 </urlset>

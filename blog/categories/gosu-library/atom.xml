@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: gosu library | Code n' Stuff]]></title>
+  <link href="http://heatherlim.github.io/blog/categories/gosu-library/atom.xml" rel="self"/>
+  <link href="http://heatherlim.github.io/"/>
+  <updated>2016-03-03T23:48:15-05:00</updated>
+  <id>http://heatherlim.github.io/</id>
+  <author>
+    <name><![CDATA[Heather Lim]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[First Forays with Gosu - That One Bouncing DvD Logo]]></title>
+    <link href="http://heatherlim.github.io/blog/2016/03/03/first-forays-with-gosu-that-one-dvd-logo-bouncing-on-the-tv-screen-thing/"/>
+    <updated>2016-03-03T22:27:11-05:00</updated>
+    <id>http://heatherlim.github.io/blog/2016/03/03/first-forays-with-gosu-that-one-dvd-logo-bouncing-on-the-tv-screen-thing</id>
+    <content type="html"><![CDATA[<p>During my free time, I&rsquo;ve been working my way through <strong>Learn Game Programming with Ruby </strong>. It&rsquo;s a pretty fun book and can be picked up: <a href = 'https://pragprog.com/book/msgpkids/learn-game-programming-with-ruby'>HERE</a></p>
+
+<p>It uses Ruby and the Gosu 2D game library which makes making simple games pretty easy. I&rsquo;ve just made my way through the first four chapters which walks you through the creation of a whack-a-mole game (except you are trying to hit a blinking bouncing ruby). It goes through animating your images, keeping score, and how to make a time limit for your game. I really recommend the book so far if you&rsquo;re just starting out with Ruby and looking for something fun and simple.</p>
+
+<p>Having finished the first project in the book, I decided to do some quick review on what I have learned with Gosu and make that one bouncing DvD logo thing. You know, the one you keep watching to see if it hits the corner of the TV?</p>
+
+<p>If you&rsquo;re still not sure, check out this clip from The Office that explains it all:</p>
+
+<center>
+<iframe width="420" height="315" src="https://www.youtube.com/embed/SmFEK2gq4QQ" frameborder="0" allowfullscreen></iframe>
+</center>
+
+
+<p>Here&rsquo;s a gif that shows what my final product looks like:<br><br></p>
+
+<center>
+<img src="/images/finishedDvD.gif">
+</center>
+
+
+<p>Note that the actual program runs smoothly. It&rsquo;s just a bad gif that is not in a perfect loop so the frame rate is terrible.</p>
+
+<p>First things first, we are going to have to make a window appear. To do this, we are going to start off by making a subclass of Gosu::Window. In our initialize method, we are also going to tell Gosu what size we want our window to be. So we use super to pass in the dimensions of the window. Notice that right at the bottom when we call the show method? We didn&rsquo;t write a method called show but it is included in Gosu.
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>require &lsquo;gosu&rsquo; # Remember to require gosu!&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;p&gt;class BounceDvD &lt; Gosu::Window&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;p&gt;  def initialize
+</span><span class='line'>    super(800, 600)
+</span><span class='line'>  end&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;p&gt;end&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;p&gt;window = BounceDvD.new
+</span><span class='line'>window.show
+</span><span class='line'>&lt;code&gt;
+</span><span class='line'>Right now, when we run the program, a blank window should appear. For the next thing, let's draw the image of the DvD logo onto the window. So we are going to add a draw method to our code. In the draw method, the first two arguments are going to be the x and y axis our image is going to be placed on. If you look below, we can see that Gosu is going to place our logo 30 px from the left and 30 px from the top (It measures this from the top left of our image, not from image center). The third argument is the z-axis. For example, if we had another logo with a higher z, it will be layered on top of our original logo. Finally, the other two arguments is the scale for x and y. Because the picture I picked has a pretty big size, I needed to scale it down so that it would fit in the window.
+</span><span class='line'>&lt;/code&gt;
+</span><span class='line'>require &lsquo;gosu&rsquo;&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;p&gt;class BounceDvD &lt; Gosu::Window&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;p&gt;  def initialize
+</span><span class='line'>    super(800, 600)
+</span><span class='line'>    @image = Gosu::Image.new(&lsquo;dvdVideo.png&rsquo;)
+</span><span class='line'>    @x = 30
+</span><span class='line'>    @y = 30
+</span><span class='line'>  end&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;p&gt;  def draw
+</span><span class='line'>    @image.draw(@x, @y, 1, 0.4, 0.4)
+</span><span class='line'>  end&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;p&gt;end&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;p&gt;window = BounceDvD.new
+</span><span class='line'>window.show</span></code></pre></td></tr></table></div></figure>
+Once we run that code above, we should open up a window and we can see the DvD logo.</p>
+
+<center>
+<img src="/images/stillDvD.png" width = 400>
+</center>
+
+
+<p>Next, we are going to try to move the logo. To do this, we are going to fill up the update method. In our initialize method, we are going to create two more variables for velocity. It will determine how much our logo will be moving. Then, in update, we will add the velocity numbers to our current x and y value. Basically, the logo&rsquo;s position in the window will be continuously updating by however much the velocity is.
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>require &lsquo;gosu&rsquo;&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;p&gt;class BounceDvD &lt; Gosu::Window&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;p&gt;  def initialize
+</span><span class='line'>    super(800, 600)
+</span><span class='line'>    @image = Gosu::Image.new(&lsquo;dvdVideo.png&rsquo;)
+</span><span class='line'>    @x = 30
+</span><span class='line'>    @y = 30
+</span><span class='line'>    @velocity_x = 5
+</span><span class='line'>    @velocity_y = 5
+</span><span class='line'>  end&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;p&gt;  def draw
+</span><span class='line'>    @image.draw(@x, @y, 1, 0.4, 0.4)
+</span><span class='line'>  end&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;p&gt;  def update
+</span><span class='line'>    @x += @velocity_x
+</span><span class='line'>    @y += @velocity_y
+</span><span class='line'>  end&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;p&gt;end&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;p&gt;window = BounceDvD.new
+</span><span class='line'>window.show</span></code></pre></td></tr></table></div></figure>
+However, here we are going to run into a problem. We want our logo to bounce on the screen once it meets the edge. Our program right now is always adding the velocity to our logo&rsquo;s position so it will eventually just move off the edge of the screen like so.</p>
+
+<center>
+<img src="/images/offtheedge.gif">
+</center>
+
+
+<p>To fix this, our velocity will have to become negative once it hits an edge. That way, it will bounce back instead of continuing onwards. Whenever the logo hits an edge, we want it to reverse directions. We can tinker around with the update method even more and get this:</p>
+
+<pre><code>def update
+    @x += @velocity_x
+    @y += @velocity_y
+    if @x &gt; 800 || @x &lt; 0
+      @velocity_x *= -1
+    end
+    if @y &gt; 600 || @y &lt; 0
+      @velocity_y *= -1
+    end
+  end
+</code></pre>
+
+<p>The numbers of 800 and 600 come from the window size we had defined in the initialize method. And we also have @x &lt; 0 and @y &lt; 0 to make sure it will bounce on all edges. The velocity gets reversed by multiplying it by -1 to create the bounce. The following gif illustrates the result:</p>
+
+<center>
+<img src="/images/clipping.gif">
+</center>
+
+
+<p>It still isn&rsquo;t quite right. Remember that our image&rsquo;s placement in the window is decided by its upper left corner? So notice that in the gif, it actually only bounces on that corner. So while the left and top part of the window looks okay, the bottom and right side shows the logo clipping out of the window&rsquo;s view. It isn&rsquo;t what we want. We would like it to actually bounce on the logo&rsquo;s right side, not just its corner. We can do a little maths and fix this by expanding on the if statement in the update method. Our image size is 120 x 120 so if we subtract the window&rsquo;s size by that amount, we should be able to find when the logo should bounce. Like so:
+<code>
+def update
+    @x += @velocity_x
+    @y += @velocity_y
+    if @x &gt; 800 || @x &lt; 0 || @x &gt; 800 - 120
+      @velocity_x *= -1
+    end
+    if @y &gt; 600 || @y &lt; 0 || @y &gt; 600 - 120
+      @velocity_y *= -1
+    end
+  end
+</code>
+<br>
+And great! The result should now be bouncing on the edge of the logo. It was a really quick and easy exercise. The full code can be seen: <a href = 'https://github.com/heatherlim/bouncingdvdtest'> HERE </a></p>
+
+<p>Hopefully this demonstrates how easy it is to get started with gosu and animating with Ruby.</p>
+]]></content>
+  </entry>
+  
+</feed>
