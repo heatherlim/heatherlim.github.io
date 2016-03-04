@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: hello world | Code n' Stuff]]></title>
+  <link href="http://heatherlim.github.io/blog/categories/hello-world/atom.xml" rel="self"/>
+  <link href="http://heatherlim.github.io/"/>
+  <updated>2016-03-04T02:40:43-05:00</updated>
+  <id>http://heatherlim.github.io/</id>
+  <author>
+    <name><![CDATA[Heather Lim]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Hello World in IntelliJ - First Experience with an IDE]]></title>
+    <link href="http://heatherlim.github.io/blog/2016/03/04/hello-world-in-intellij-first-experience-with-an-ide/"/>
+    <updated>2016-03-04T01:28:57-05:00</updated>
+    <id>http://heatherlim.github.io/blog/2016/03/04/hello-world-in-intellij-first-experience-with-an-ide</id>
+    <content type="html"><![CDATA[<p>I come from a coding bootcamp background (I attended Flatiron School). Being in the web development class, my first language was Ruby and my coding environment was pretty much just Sublime Text (though more recently Atom). With Ruby as a first language, IDEs can seem to be pretty alien. What&rsquo;s the point? Isn&rsquo;t everything I need just in a simple text editor? These are the questions I had when Ruby was the only language I knew. While there are Ruby IDEs out there, you can get by with no trouble just using a text editor.</p>
+
+<p>I ran into my first feeling that I needed an IDE when I started learning Java. It was very different from Ruby. I needed to get used to a static language. Arrays that needed to know what size they were, variables to be declared and remembering to compile a program before running it. I admit that my first Java program (a simple shopping cart reader that would get its input from a text file and give a receipt as an output after calculating item totals and tax) was programmed entirely on sublime and while coding, I kept thinking - This feels a lot harder than it should be. After the horrified look I got from a friend when I mentioned I was coding Java on a text editor, he recommended IntelliJ as an IDE to use. And that is where I am now.</p>
+
+<p>So to start off&hellip; what is an IDE?</p>
+
+<p>IDE stands for Integrated Development Environment. IntelliJ doesn&rsquo;t just give a platform for writing code on, but it also contains a compiler, built-in debugging (way better than my beloved binding.pry), and a very helpful autocomplete.</p>
+
+<p>This all seems great!</p>
+
+<p>One of my main issues from my first Java program was just forgetting to compile and so on&hellip; it was an extra step that I didn&rsquo;t need to do with Ruby. However, just getting started on an IDE having never encountered one before has led me to see that there is a learning curve. With a text editor, I could hit the ground running and immediately start writing code. But there is some familiarity that needs to be developed with an IDE and learning one is a challenge in and of itself.</p>
+
+<p>As you can see from the title of this blog post, this is just a simple guide on creating a Hello World program with IntelliJ. (The pictures might look a little bit small but they expand if you click on them.) This post also helps me document my learning progress.</p>
+
+<p>Step 1: Create a new project</p>
+
+<p>When you open up IntelliJ, click on the option to make a new project.</p>
+
+<center>
+<img src="/images/intellij1.png" width = 400>
+</center>
+
+
+<p>Step 2: Navigate through the options and select the command line app template.</p>
+
+<p>Once you&rsquo;ve clicked new project, you are given the option to include additional libraries and frameworks. If you click next (because we&rsquo;re not using any), you&rsquo;ll get to the template selection page. We&rsquo;re just making a hello world program so we&rsquo;ll just pick the command line app template.</p>
+
+<center>
+<img src="/images/intellij2.png" width = 400><img src="/images/intellij2a.png" width = 400>
+</center>
+
+
+<p>Step 3: Name the project and choose its location</p>
+
+<p>I already had a folder called HelloWorld made.</p>
+
+<center>
+<img src="/images/intellij3.png" width = 400>
+</center>
+
+
+<p>Step 4: Write the code</p>
+
+<p>Selecting the command line template makes the public static void appear automatically. So we just need to fill in the rest. While writing, it was nice to see the auto-complete. It&rsquo;s helpful to be able to see the methods you have available to you.</p>
+
+<center>
+<img src="/images/intellij4.png" width = 400>
+</center>
+
+
+<p>Step 5: Running the code</p>
+
+<p>To run the code and see &ldquo;hello world!&rdquo; printed out, we just need to hit the green triangle on the top right of the window.</p>
+
+<center>
+<img src="/images/intellij5.png" width = 400>
+</center>
+
+
+<p>And there you have it, my first attempt at trying to familiarize myself a little bit with the absolute basics of IntelliJ before really diving into it. It was definitely a little strange for me at first, coming over from Ruby for the need of an IDE. But I can already tell that if I had written my Java shopping cart reader with IntelliJ, it would have saved me a lot of time in the long run. Overall, I can tell that using an IDE is a lot more powerful but it does have a steeper learning curve when compared to the text editors that I am more familiar with.</p>
+]]></content>
+  </entry>
+  
+</feed>
