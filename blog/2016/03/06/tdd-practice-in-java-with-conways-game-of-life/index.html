@@ -1,0 +1,470 @@
+
+<!DOCTYPE HTML>
+<html>
+<head>
+	<script data-cfasync="false" type="text/javascript" src="//use.typekit.net/axj3cfp.js"></script>
+	<script data-cfasync="false" type="text/javascript">try{Typekit.load();}catch(e){}</script>
+	<meta charset="utf-8">
+	<title>TDD Practice: Life and Death of a Cell (Conway's Game of Life)  | Code n' Stuff</title>
+
+<meta name="author" content="Heather Lim"> 
+
+<meta name="description" content="I got a bit more practice since my last post on just barely touching IntelliJ. I&rsquo;m currently working on implementing Conway&rsquo;s Game of &hellip;"> <meta name="keywords" content="">
+
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+	<link href="/atom.xml" rel="alternate" title="Code n' Stuff" type="application/atom+xml">
+	<link rel="canonical" href="">
+	<link href="/favicon.png" rel="shortcut icon">
+	<link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+	<link href="/stylesheets/font-awesome.min.css" rel="stylesheet" type="text/css">
+	<!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+	<script type="text/javascript" src="/javascripts/jquery.fancybox.pack.js"></script>
+
+<script language="Javascript" type="text/javascript">
+$(document).ready(
+  function() {
+    (function($) {
+      $(".fancybox[data-content-id]").each(function() {
+        this.href = $(this).data('content-id');
+      });
+      $(".fancybox").fancybox({
+        beforeLoad: function() {
+          var el, 
+              id = $(this.element).data('title-id');
+
+          if (id) {
+            el = $('#' + id);
+
+            if (el.length) {
+              this.title = el.html();
+            }
+          }
+          if ($(this).data('content')) {
+            this.content = $(this).data('content');
+          }
+        },
+        helpers: {
+          title: {
+            type: 'inside'
+          }
+        }
+      });
+    })(jQuery);
+  }
+);
+</script>
+
+	
+</head>
+
+
+
+<body>
+	<header id="header" class="inner"><h1><a href="/">Code n' Stuff</a></h1>
+<h4>Heather's Technical Blog</h4>
+
+<nav id="main-nav">
+<ul>
+	<li><a href="/">Blog</a></li>
+	<li><a href="/archives">Archive</a></li>
+  <li><a href ="http://www.heather-lim.com">Website</a></li>
+  <li><a href ="http://www.linkedin.com/in/heatherlim">LinkedIn</a></li>
+</ul>
+</nav>
+
+<nav id="mobile-nav">
+	<div class="alignleft menu">
+		<a class="button">Menu</a>
+		<div class="container">
+<ul>
+	<li><a href="/">Blog</a></li>
+	<li><a href="/archives">Archive</a></li>
+  <li><a href ="http://www.heather-lim.com">Website</a></li>
+  <li><a href ="http://www.linkedin.com/in/heatherlim">LinkedIn</a></li>
+</ul>
+</div>
+	</div>
+	<div class="alignright search">
+		<a class="button"></a>
+		<div class="container">
+			<form action="https://www.google.com/search" method="get">
+				<input type="text" name="q" results="0">
+				<input type="hidden" name="q" value="site:heatherlim.github.io">
+			</form>
+		</div>
+	</div>
+</nav>
+
+
+</header>
+
+	<div id="content" class="inner"><article class="post">
+	<h2 class="title">TDD Practice: Life and Death of a Cell (Conway's Game of Life)</h2>
+	<div class="entry-content"><p>I got a bit more practice since my last post on just barely touching IntelliJ. I&rsquo;m currently working on implementing Conway&rsquo;s Game of Life in Java and I decided to use TDD to help me along the process. I like how it helps me to think on the design of my code. And that I can be sure new methods I write don&rsquo;t break my previous ones. Right now, I&rsquo;m going to walk through the process of the cell logic in the Game of Life.</p>
+
+<p><strong>Rules (Taken from Wikipedia)</strong><br>
+1) Any live cell with fewer than two live neighbours dies, as if caused by under-population.<br>
+2) Any live cell with two or three live neighbours lives on to the next generation.<br>
+3) Any live cell with more than three live neighbours dies, as if by over-population.<br>
+4) Any dead cell with exactly three live neighbours becomes a live cell, as if by reproduction.</p>
+
+<p>The first test I decided to write was that a cell&rsquo;s initial state would be dead. (Something nice about using IntelliJ was that it would help auto-import libraries and the auto-completion is really convenient. Also, clicking option+enter brings up available suggestions to fix an error in your code.)</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>public class CellTest {
+</span><span class='line'>    @Test
+</span><span class='line'>    public void InitialStateisDead() {
+</span><span class='line'>        Cell cell = new Cell();
+</span><span class='line'>        Assert.assertEquals(cell.getState(), false);
+</span><span class='line'>    }  
+</span><span class='line'>}</span></code></pre></td></tr></table></div></figure>
+
+
+<p>This test would automatically fail. Which is what we expected. The next step is to pass this test in the absolute simplest way. So to make this test pass, we would just make the method state return false.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>public class Cell {
+</span><span class='line'>     public boolean getState(){
+</span><span class='line'>       return false;
+</span><span class='line'>    }
+</span><span class='line'>}</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Great, so now we have all our tests passing. But what happens if the state of our cell is alive? We need to write a test that can check that.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>@Test
+</span><span class='line'>    public void CellStateCanChange(){
+</span><span class='line'>      Cell changeCellAlive = new Cell();
+</span><span class='line'>        changeCellAlive.changeState();
+</span><span class='line'>        Assert.assertEquals(changeCellAlive.getState(), true);
+</span><span class='line'>    }</span></code></pre></td></tr></table></div></figure>
+
+
+<p>The test right now is failing. We need to write a changeState method which is missing right now. While it should make the state of our cell toggle, we are going one small step at a time. I made an instance variable that returns false and made it so our method state would be returning that variable. So the simplest way to just make the test pass would be for changeState to just set the state of the cell as true as you can see in line 7.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>public class Cell {
+</span><span class='line'>    private boolean state = false;
+</span><span class='line'>    public boolean getState(){
+</span><span class='line'>       return state;
+</span><span class='line'>    }
+</span><span class='line'>    public void changeState() {
+</span><span class='line'>        state = true;
+</span><span class='line'>    }
+</span><span class='line'>}</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Now however, we want to see if a cell can change from alive to dead. We will write a test that will try to change the state of an alive cell and the state should return false. Of course the test will fail as right now, changeState can only make the state change to true, not false.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>@Test
+</span><span class='line'>public void CellStateCanChange(){
+</span><span class='line'>  Cell changeCellAlive = new Cell();
+</span><span class='line'>  changeCellAlive.changeState();
+</span><span class='line'>  Cell changeCellDead = new Cell();
+</span><span class='line'>  changeCellDead.changeState();
+</span><span class='line'>  changeCellDead.changeState();
+</span><span class='line'>  Assert.assertEquals(changeCellAlive.getState(), true);
+</span><span class='line'>  Assert.assertEquals(changeCellDead.getState(), false);
+</span><span class='line'>}</span></code></pre></td></tr></table></div></figure>
+
+
+<p>To make this test pass, I am going to edit the changeState method. It will check the state of the cell and be able to toggle it.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>public class Cell {
+</span><span class='line'>  private boolean state = false;
+</span><span class='line'>  public boolean getState(){
+</span><span class='line'>     return state;
+</span><span class='line'>  }
+</span><span class='line'>  public void changeState() {
+</span><span class='line'>     state = !state;
+</span><span class='line'>  }
+</span><span class='line'>}</span></code></pre></td></tr></table></div></figure>
+
+
+<p>The test passes now. I want to start incorporating some of the rules of Conway&rsquo;s Game of Life. Namely, the condition where a cell can live onto the next stage. A cell that has two or three neighbours will be able to live onto the next generation.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>@Test
+</span><span class='line'>   public void CanLiveOnToNextStage(){
+</span><span class='line'>     Cell cell = new Cell();
+</span><span class='line'>       Cell cell2 = new Cell();
+</span><span class='line'>       cell2.nextState(3);
+</span><span class='line'>       cell.nextState(2);
+</span><span class='line'>       Assert.assertEquals(cell.getNextState(), true);
+</span><span class='line'>       Assert.assertEquals(cell.getNextState(), true);
+</span><span class='line'>   }</span></code></pre></td></tr></table></div></figure>
+
+
+<p>To make the test pass, I&rsquo;ll create the method getNextState and nextState. nextState determines what the cell&rsquo;s next state is. It will accept an integer as an argument. The integer is meant to represent the number of neighbours that the cell has. getNextState will be retrieving what the next state is.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>public class Cell {
+</span><span class='line'>    private boolean state = false;
+</span><span class='line'>    private boolean nextState = false;
+</span><span class='line'>    public boolean getState(){
+</span><span class='line'>       return state;
+</span><span class='line'>    }
+</span><span class='line'>    public void changeState() {
+</span><span class='line'>        state = !state;
+</span><span class='line'>    }
+</span><span class='line'>    public boolean getNextState(){
+</span><span class='line'>        return nextState;
+</span><span class='line'>    }
+</span><span class='line'>    public void nextState(int i) {
+</span><span class='line'>        if(i == 2 || i == 3){
+</span><span class='line'>            nextState = true;
+</span><span class='line'>        }
+</span><span class='line'>    }
+</span><span class='line'>}</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Now that the tests pass, I&rsquo;m going to move onto other tests that see what situations a cell wouldn&rsquo;t be living onto the next generation. Let&rsquo;s do under-population. If a live cell has fewer than two live neighbours, it will die. By default however, because our nextState is set to false, our tests should pass automatically. But as we want the tests to fail, I set the next state to have neighbours of 3 first. Then, I set it to lower numbers. To clarify, let&rsquo;s say I did not previously set the state of the neighbours to have 3 first. Then I would end up with a test like this:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>@Test
+</span><span class='line'>    public void WillDieOfUnderpopulation(){
+</span><span class='line'>        Cell noNeighbourCell = new Cell();
+</span><span class='line'>        Cell oneNeighbourCell = new Cell();
+</span><span class='line'>        noNeighbourCell.nextState(0);
+</span><span class='line'>        oneNeighbourCell.nextState(1);
+</span><span class='line'>        Assert.assertEquals(noNeighbourCell.getNextState(), false);
+</span><span class='line'>        Assert.assertEquals(oneNeighbourCell.getNextState(), false);
+</span><span class='line'>    }</span></code></pre></td></tr></table></div></figure>
+
+
+<p>These tests would actually be passing. But that would be an inaccurate reflection of what I want the code to do. I need the tests to fail so I can edit the code to account for that. After all, the next state of a cell is by default always going to be false. I will have to write something to make it true and see if it can change to false. So notice the two extra lines I write on the test below.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>@Test
+</span><span class='line'>    public void WillDieOfUnderpopulation(){
+</span><span class='line'>        Cell noNeighbourCell = new Cell();
+</span><span class='line'>        Cell oneNeighbourCell = new Cell();
+</span><span class='line'>        noNeighbourCell.nextState(3);
+</span><span class='line'>        noNeighbourCell.nextState(0);
+</span><span class='line'>        oneNeighbourCell.nextState(3);
+</span><span class='line'>        oneNeighbourCell.nextState(1);
+</span><span class='line'>        Assert.assertEquals(noNeighbourCell.getNextState(), false);
+</span><span class='line'>        Assert.assertEquals(oneNeighbourCell.getNextState(), false);
+</span><span class='line'>    }</span></code></pre></td></tr></table></div></figure>
+
+
+<p>To pass this, I just need to fill in the else statement of our nextState method.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>public void nextState(int i) {
+</span><span class='line'>        if(i == 2 || i == 3){
+</span><span class='line'>            nextState = true;
+</span><span class='line'>        } else {
+</span><span class='line'>            nextState = false;
+</span><span class='line'>        }
+</span><span class='line'>    }</span></code></pre></td></tr></table></div></figure>
+
+
+<p>I continue to test in this manner. I get the test to pass then I think of more specific scenarios to test to get the test to fail and then I go back to refine the code more. I still need to write the tests for what happens in the event of over-population and how reproduction works.</p>
+
+<p>I also decided to go back to refactor a bit. I began to think that holding the next state of my cell in a variable is a little unnecessary. I delete my getState method as well as the variable. Instead, these are what my methods look like now:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>public class Cell {
+</span><span class='line'>    private boolean state = false;
+</span><span class='line'>    public boolean getState(){
+</span><span class='line'>       return state;
+</span><span class='line'>    }
+</span><span class='line'>    public void changeState() {
+</span><span class='line'>        state = !state;
+</span><span class='line'>    }
+</span><span class='line'>    public boolean nextState(int i) {
+</span><span class='line'>        if(i == 2 || i == 3){
+</span><span class='line'>            return true;
+</span><span class='line'>        } else {
+</span><span class='line'>            return false;
+</span><span class='line'>        }
+</span><span class='line'>    }
+</span><span class='line'>    public void next(int i) {
+</span><span class='line'>        if(state != this.nextState(i)){
+</span><span class='line'>            this.changeState();
+</span><span class='line'>        }
+</span><span class='line'>    }
+</span><span class='line'>}</span></code></pre></td></tr></table></div></figure>
+
+
+<p>I do change the tests a little to reflect this change. Some methods after all are now accepting arguments. It does show my tests could have been testing too much and were a little brittle. Generally, I would not want to change my tests to account for this refactoring. This project is still a work in progress but it feels good to familiarise myself with Java, an IDE as well as testing. The final product will also use the Slick2D library for drawing out this game. I might do another separate blog post on how to integrate it with IntelliJ. While Maven did a lot of it for me, there were some native dependencies that were missing and I had to manually put them in.</p>
+</div>
+
+
+<div class="meta">
+	<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2016-03-06T23:18:22-05:00" pubdate data-updated="true"></time></div>
+	
+
+<div class="tags">
+
+	<a class='category' href='/blog/categories/conways-game-of-life/'>conway's game of life</a>, <a class='category' href='/blog/categories/java/'>java</a>, <a class='category' href='/blog/categories/practice/'>practice</a>, <a class='category' href='/blog/categories/tdd/'>tdd</a>
+
+</div>
+
+
+	
+</div></article>
+
+	<div class="share">
+	<div class="addthis_toolbox addthis_default_style ">
+	
+	
+	<a class="addthis_button_tweet"></a>
+	
+	
+<!---	<a class="addthis_counter addthis_pill_style"></a> --->
+	</div>
+  <script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid="></script>
+</div>
+
+
+</div>
+	<footer id="footer" class="inner">Copyright &copy; 2016
+
+    Heather Lim
+
+<br>
+Powered by Octopress.
+</footer>
+	<script src="/javascripts/slash.js"></script>
+<script src="/javascripts/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+	$('.fancybox').fancybox();
+})(jQuery);
+</script> <!-- Delete or comment this line to disable Fancybox -->
+
+
+
+
+
+
+</body>
+</html>

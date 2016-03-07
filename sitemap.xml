@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>http://heatherlim.github.io/blog/2016/03/06/tdd-practice-in-java-with-conways-game-of-life/</loc>
+    <lastmod>2016-03-06T23:18:22-05:00</lastmod>
+  </url>
+  <url>
     <loc>http://heatherlim.github.io/blog/2016/03/04/hello-world-in-intellij-first-experience-with-an-ide/</loc>
     <lastmod>2016-03-04T01:28:57-05:00</lastmod>
   </url>
@@ -82,5 +86,8 @@
   </url>
   <url>
     <loc>http://heatherlim.github.io/blog/categories/hello-world/</loc>
+  </url>
+  <url>
+    <loc>http://heatherlim.github.io/blog/categories/conways-game-of-life/</loc>
   </url>
 </urlset>
