@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>http://heatherlim.github.io/blog/2016/06/23/my-first-ruby-meetup-in-japan/</loc>
+    <lastmod>2016-06-23T21:19:22-04:00</lastmod>
+  </url>
+  <url>
     <loc>http://heatherlim.github.io/blog/2016/03/06/tdd-practice-in-java-with-conways-game-of-life/</loc>
     <lastmod>2016-03-06T23:18:22-05:00</lastmod>
   </url>
@@ -89,5 +93,20 @@
   </url>
   <url>
     <loc>http://heatherlim.github.io/blog/categories/conways-game-of-life/</loc>
+  </url>
+  <url>
+    <loc>http://heatherlim.github.io/blog/categories/meetup/</loc>
+  </url>
+  <url>
+    <loc>http://heatherlim.github.io/blog/categories/japan/</loc>
+  </url>
+  <url>
+    <loc>http://heatherlim.github.io/blog/categories/ruby/</loc>
+  </url>
+  <url>
+    <loc>http://heatherlim.github.io/blog/categories/asakusa-dot-rb/</loc>
+  </url>
+  <url>
+    <loc>http://heatherlim.github.io/blog/categories/thoughts/</loc>
   </url>
 </urlset>
