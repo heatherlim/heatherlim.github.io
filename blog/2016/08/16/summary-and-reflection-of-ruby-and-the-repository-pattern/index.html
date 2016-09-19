@@ -1,0 +1,193 @@
+
+<!DOCTYPE HTML>
+<html>
+<head>
+	<script data-cfasync="false" type="text/javascript" src="//use.typekit.net/axj3cfp.js"></script>
+	<script data-cfasync="false" type="text/javascript">try{Typekit.load();}catch(e){}</script>
+	<meta charset="utf-8">
+	<title>Benefits of giving a Technical Presentation (some thoughts!)  | Code n' Stuff</title>
+
+<meta name="author" content="Heather Lim"> 
+
+<meta name="description" content="Getting ready. Last August, I had the amazing opportunity to give my first real technical presentation at NYC.rb! (Here&rsquo;s a link to its event &hellip;"> <meta name="keywords" content="">
+
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+	<link href="/atom.xml" rel="alternate" title="Code n' Stuff" type="application/atom+xml">
+	<link rel="canonical" href="">
+	<link href="/favicon.png" rel="shortcut icon">
+	<link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+	<link href="/stylesheets/font-awesome.min.css" rel="stylesheet" type="text/css">
+	<!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+	<script type="text/javascript" src="/javascripts/jquery.fancybox.pack.js"></script>
+
+<script language="Javascript" type="text/javascript">
+$(document).ready(
+  function() {
+    (function($) {
+      $(".fancybox[data-content-id]").each(function() {
+        this.href = $(this).data('content-id');
+      });
+      $(".fancybox").fancybox({
+        beforeLoad: function() {
+          var el, 
+              id = $(this.element).data('title-id');
+
+          if (id) {
+            el = $('#' + id);
+
+            if (el.length) {
+              this.title = el.html();
+            }
+          }
+          if ($(this).data('content')) {
+            this.content = $(this).data('content');
+          }
+        },
+        helpers: {
+          title: {
+            type: 'inside'
+          }
+        }
+      });
+    })(jQuery);
+  }
+);
+</script>
+
+	
+</head>
+
+
+
+<body>
+	<header id="header" class="inner"><h1><a href="/">Code n' Stuff</a></h1>
+<h4>Heather's Technical Blog</h4>
+
+<nav id="main-nav">
+<ul>
+	<li><a href="/">Blog</a></li>
+	<li><a href="/archives">Archive</a></li>
+  <li><a href ="http://www.heather-lim.com">Website</a></li>
+  <li><a href ="http://www.linkedin.com/in/heatherlim">LinkedIn</a></li>
+</ul>
+</nav>
+
+<nav id="mobile-nav">
+	<div class="alignleft menu">
+		<a class="button">Menu</a>
+		<div class="container">
+<ul>
+	<li><a href="/">Blog</a></li>
+	<li><a href="/archives">Archive</a></li>
+  <li><a href ="http://www.heather-lim.com">Website</a></li>
+  <li><a href ="http://www.linkedin.com/in/heatherlim">LinkedIn</a></li>
+</ul>
+</div>
+	</div>
+	<div class="alignright search">
+		<a class="button"></a>
+		<div class="container">
+			<form action="https://www.google.com/search" method="get">
+				<input type="text" name="q" results="0">
+				<input type="hidden" name="q" value="site:heatherlim.github.io">
+			</form>
+		</div>
+	</div>
+</nav>
+
+
+</header>
+
+	<div id="content" class="inner"><article class="post">
+	<h2 class="title">Benefits of Giving a Technical Presentation (Some Thoughts!)</h2>
+	<div class="entry-content"><figure align="center">
+<img src = "/images/nycrbpresentation.jpg" width = 500>
+<figcaption><em>Getting ready.</em></figcaption>
+</figure>
+
+
+<p><br>
+Last August, I had the amazing opportunity to give my first real technical presentation at NYC.rb! (Here&rsquo;s a <a href = "http://www.meetup.com/NYC-rb/events/230515892/"> link </a> to its event page). I learnt a lot, found a way to give back to the Ruby community, and had a great time.</p>
+
+<p>This whole adventure started when I was exploring using the repository pattern in Ruby - a language whose ecosystem is very much centered around Rails (which does not use the repository pattern). So to aid further understanding of this pattern, I used a lesser-known framework, <a href = "http://hanamirb.org/">Hanami</a>, to show how it compares with Rails' ActiveRecord. While there are other ways to force the repository pattern on Rails such as <a href = "http://rom-rb.org/">ROM</a>, after reading a <a href = "http://solnic.eu/2016/05/22/my-time-with-rails-is-up.html"> blog post</a> by Piotr Solnica, I guess thoughts about the state of the Ruby ecosystem had been lingering in my mind. What is Ruby without Rails? After all, if someone is a Ruby developer, chances are that they are working in Rails. But if a better Rails alternative comes out then isn&rsquo;t written in Ruby, what is going to happen to the Ruby language? Is Ruby&rsquo;s future too dependent on Rails? With these thoughts in mind, I thought it would be fun and educational to learn a new framework. And what better way to solidify learning something new then to give a technical talk?</p>
+
+<p>From experience, I&rsquo;ve found explaining a concept to someone is a great way to test if you have truly understood what you had been learning. By explaining it to someone else, it forces your perspective on the concept to change - from &ldquo;just making it work&rdquo; to truly understanding why it works that way. It changes your priority. It&rsquo;s easy to copy + paste that piece of code from Stack Overflow to just make your app work but after all, I&rsquo;m learning to be a full-stack developer, not a full-stack-overflow developer. This technical talk was my way of challenging myself to pause for a moment and reflect on why does Rails use ActiveRecord and what are some alternatives to this architectural pattern? In the end, not only would I learn something but I&rsquo;ll also be sharing knowledge. So it is a win/win on both sides.</p>
+
+<p>The experience of giving a talk really was a great learning experience. I felt I understood the concepts I was talking about a lot deeper than simply just knowing how to implement them. I became more aware of the different kinds of knowledge that exist. Implementing something is different from understanding it. But to implement something <em>well</em>, requires you to really understand what is going on. It gives you choice. When you understand something, you&rsquo;ll be able to choose the right tool for the job and make an informed decision. This is an important skill to have as a developer when you are faced with many different kinds of applications that might not fit the Rails model well.</p>
+
+<p>Another benefit in giving a technical presentation is that it helps contribute to the community. I love the Ruby community. It was incredibly friendly when I first started learning and I always felt welcome at meetups no matter my skill level. I learnt so much from more experienced developers. Giving a talk is in a way giving back and hopefully somebody does learn something new in turn.</p>
+
+<p>Finally, while this does not directly relate to programming, giving this presentation helped me gain confidence. I was very nervous initially and struggled a lot with imposter syndrome. Could someone really learn something from me? As much as I felt this talk was a challenge to myself to really understand the tools I was working with, it was also a  personal challenge. Simply, could I do it? It&rsquo;s tough when it is your first time getting up in front of an audience of developers, live coding, and then taking questions at the end. It really tests both your technical knowledge and your ability to keep calm under pressure (especially if you had never done something like this before). But all in all, it helped me to be more confident in myself and my efforts. It&rsquo;s something that I would definitely love to do again.</p>
+
+<p>So to sum up: <br>
+1) Giving a presentation helps you learn<br>
+2) It gives back to the community<br>
+3) It helps build confidence<br>
+4) It&rsquo;s a lot of fun!</p>
+</div>
+
+
+<div class="meta">
+	<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2016-08-16T16:21:55-04:00" pubdate data-updated="true"></time></div>
+	
+
+<div class="tags">
+
+	<a class='category' href='/blog/categories/learning/'>learning</a>, <a class='category' href='/blog/categories/meetup/'>meetup</a>, <a class='category' href='/blog/categories/nyc-dot-rb/'>nyc.rb</a>, <a class='category' href='/blog/categories/ruby/'>ruby</a>, <a class='category' href='/blog/categories/thoughts/'>thoughts</a>
+
+</div>
+
+
+	
+</div></article>
+
+	<div class="share">
+	<div class="addthis_toolbox addthis_default_style ">
+	
+	
+	<a class="addthis_button_tweet"></a>
+	
+	
+<!---	<a class="addthis_counter addthis_pill_style"></a> --->
+	</div>
+  <script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid="></script>
+</div>
+
+
+</div>
+	<footer id="footer" class="inner">Copyright &copy; 2016
+
+    Heather Lim
+
+<br>
+Powered by Octopress.
+</footer>
+	<script src="/javascripts/slash.js"></script>
+<script src="/javascripts/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+	$('.fancybox').fancybox();
+})(jQuery);
+</script> <!-- Delete or comment this line to disable Fancybox -->
+
+
+
+
+
+
+</body>
+</html>

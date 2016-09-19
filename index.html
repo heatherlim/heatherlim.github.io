@@ -9,7 +9,7 @@
 
 <meta name="author" content="Heather Lim"> 
 
-<meta name="description" content="I definitely need to brush up my origami skills! (I made the one on the left). This post is a bit of a train of thought. I graduated from a coding &hellip;"> <meta name="keywords" content="">
+<meta name="description" content="Getting ready. Last August, I had the amazing opportunity to give my first real technical presentation at NYC.rb! (Here&rsquo;s a link to its event &hellip;"> <meta name="keywords" content="">
 
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
@@ -101,6 +101,71 @@ $(document).ready(
 </header>
 
 	<div id="content" class="inner">
+
+
+    <article class="post">
+	<h2 class="title">
+		
+		<a href="/blog/2016/08/16/summary-and-reflection-of-ruby-and-the-repository-pattern/">
+		
+			Benefits of Giving a Technical Presentation (Some Thoughts!)</a>
+	</h2>
+	<div class="entry-content">
+		<figure align="center">
+<img src = "/images/nycrbpresentation.jpg" width = 500>
+<figcaption><em>Getting ready.</em></figcaption>
+</figure>
+
+
+<p><br>
+Last August, I had the amazing opportunity to give my first real technical presentation at NYC.rb! (Here&rsquo;s a <a href = "http://www.meetup.com/NYC-rb/events/230515892/"> link </a> to its event page). I learnt a lot, found a way to give back to the Ruby community, and had a great time.</p>
+
+<p>This whole adventure started when I was exploring using the repository pattern in Ruby - a language whose ecosystem is very much centered around Rails (which does not use the repository pattern). So to aid further understanding of this pattern, I used a lesser-known framework, <a href = "http://hanamirb.org/">Hanami</a>, to show how it compares with Rails' ActiveRecord. While there are other ways to force the repository pattern on Rails such as <a href = "http://rom-rb.org/">ROM</a>, after reading a <a href = "http://solnic.eu/2016/05/22/my-time-with-rails-is-up.html"> blog post</a> by Piotr Solnica, I guess thoughts about the state of the Ruby ecosystem had been lingering in my mind. What is Ruby without Rails? After all, if someone is a Ruby developer, chances are that they are working in Rails. But if a better Rails alternative comes out then isn&rsquo;t written in Ruby, what is going to happen to the Ruby language? Is Ruby&rsquo;s future too dependent on Rails? With these thoughts in mind, I thought it would be fun and educational to learn a new framework. And what better way to solidify learning something new then to give a technical talk?</p>
+
+<p>From experience, I&rsquo;ve found explaining a concept to someone is a great way to test if you have truly understood what you had been learning. By explaining it to someone else, it forces your perspective on the concept to change - from &ldquo;just making it work&rdquo; to truly understanding why it works that way. It changes your priority. It&rsquo;s easy to copy + paste that piece of code from Stack Overflow to just make your app work but after all, I&rsquo;m learning to be a full-stack developer, not a full-stack-overflow developer. This technical talk was my way of challenging myself to pause for a moment and reflect on why does Rails use ActiveRecord and what are some alternatives to this architectural pattern? In the end, not only would I learn something but I&rsquo;ll also be sharing knowledge. So it is a win/win on both sides.</p>
+
+<p>The experience of giving a talk really was a great learning experience. I felt I understood the concepts I was talking about a lot deeper than simply just knowing how to implement them. I became more aware of the different kinds of knowledge that exist. Implementing something is different from understanding it. But to implement something <em>well</em>, requires you to really understand what is going on. It gives you choice. When you understand something, you&rsquo;ll be able to choose the right tool for the job and make an informed decision. This is an important skill to have as a developer when you are faced with many different kinds of applications that might not fit the Rails model well.</p>
+
+<p>Another benefit in giving a technical presentation is that it helps contribute to the community. I love the Ruby community. It was incredibly friendly when I first started learning and I always felt welcome at meetups no matter my skill level. I learnt so much from more experienced developers. Giving a talk is in a way giving back and hopefully somebody does learn something new in turn.</p>
+
+<p>Finally, while this does not directly relate to programming, giving this presentation helped me gain confidence. I was very nervous initially and struggled a lot with imposter syndrome. Could someone really learn something from me? As much as I felt this talk was a challenge to myself to really understand the tools I was working with, it was also a  personal challenge. Simply, could I do it? It&rsquo;s tough when it is your first time getting up in front of an audience of developers, live coding, and then taking questions at the end. It really tests both your technical knowledge and your ability to keep calm under pressure (especially if you had never done something like this before). But all in all, it helped me to be more confident in myself and my efforts. It&rsquo;s something that I would definitely love to do again.</p>
+
+<p>So to sum up: <br>
+1) Giving a presentation helps you learn<br>
+2) It gives back to the community<br>
+3) It helps build confidence<br>
+4) It&rsquo;s a lot of fun!</p>
+
+		
+		
+	</div>
+
+
+<div class="meta">
+	<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2016-08-16T16:21:55-04:00" pubdate data-updated="true"></time></div>
+	
+
+<div class="tags">
+
+	<a class='category' href='/blog/categories/learning/'>learning</a>, <a class='category' href='/blog/categories/meetup/'>meetup</a>, <a class='category' href='/blog/categories/nyc-dot-rb/'>nyc.rb</a>, <a class='category' href='/blog/categories/ruby/'>ruby</a>, <a class='category' href='/blog/categories/thoughts/'>thoughts</a>
+
+</div>
+
+
+	
+</div></article>
 
 
     <article class="post">
@@ -2085,136 +2150,10 @@ I&rsquo;m reading the prefix expression from right to left, popping a value from
 	
 </div></article>
 
-
-    <article class="post">
-	<h2 class="title">
-		
-		<a href="/blog/2015/10/06/first-blog-post/">
-		
-			Why I Had Problems With Arrays/Hashes/Pigeons... (and What Else I Learned)</a>
-	</h2>
-	<div class="entry-content">
-		<p>Iteration was my first challenge that I didn&rsquo;t really know what to make of. I went through great pains to not use it. On the first lab where we had to write a method that could tel if a number was prime or not, instead of iterating through the whole array range to see if there were more than two zeroes (the array represented the number being divided by 1 to that particular number. So the first element in the array would be that number divided by one, the second element would be that number divided by two and so on&hellip; if the number was prime, the modulo should return only two 0s), I would instead sort the array and check if array[2] == 0.</p>
-
-<p>So already by avoiding it, I made it harder for myself to pick up. It was probably the first method that didn&rsquo;t look to be in plain English for me. It was pretty abstract.</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>basket = ["apple 1","apple 2","apple 3","apple 4","apple 5","apple 6","apple 7","apple 8","apple 9","apple 10"]
-</span><span class='line'>
-</span><span class='line'>basket.each do |apple|
-</span><span class='line'>    puts "Taking out #{apple}"
-</span><span class='line'>end</span></code></pre></td></tr></table></div></figure>
-
-
-<p>It didn&rsquo;t click until later that the word between the | | could be anything. In this case it is apple because it describes each element of the array that is picked up. But it is only for ease of understanding. It could be |oranges| for all the program cares.</p>
-
-<p>It also helped me to visualize what&rsquo;s going on. Basically it was as though a pedantic person was going over each item in the array one by one and then executing whatever the instructions below told him to. So apple (or whatever is between the ||) would be equal to the string &ldquo;apple 1&rdquo; and then &ldquo;apple 2&rdquo; and so on&hellip;</p>
-
-<p>It&rsquo;s a step by step process that I guess I could read as for each item in the array, do this to that item. And that started to make it clearer for me rather than what I thinking before. That it was some kind of magic thing that did something all at once. Figuring out the plain English equivalent made it also easier for me to finish the pigeon hash lab where we had to sort out pigeons by their names and attributes. The tricky part was understanding what exactly you were getting between those ||.</p>
-
-<p>Because I found iteration difficult, on my own time, I decided to make a cute program that would be able to take in a bunch of people and divide them into however many groups the user would want. The program would return different groups each time it was run.</p>
-
-<p>For example, while the input would look something like this:</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>people = ["Adrian", "Polly", "John", "Ivan", "Jack", "Tom", "Anna", "Mary", "Ben", "Jeff",
-</span><span class='line'>"Alex", "Megan", "Helen", "Sarah", "Wei", "Aristo", "Jane", "Meredith", "Liz", "Lacey"]</span></code></pre></td></tr></table></div></figure>
-
-
-<p>The output will be in this format:</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>groups = {
-</span><span class='line'>   :group1 =&gt; [-names here-],
-</span><span class='line'>   :group2 =&gt; [-names here-],
-</span><span class='line'>   :group3 =&gt; [-names here-],
-</span><span class='line'>   :group4 =&gt; [-names here-],
-</span><span class='line'>   :group5 =&gt; [-names here-]
-</span><span class='line'>    }
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>Because I wanted to find a random person from the people array, I thought why not find a random number with rand() and make the number inside rand to be people.count? Then, if I named that variable something, I could call it into people[random] and it should return a random person from the array.</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>random = rand(people.count)
-</span><span class='line'>  people[random]
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>After this, I would be able to shovel in random people into their arrays as long as the people inside each of their arrays would not exceed the people.length/groupnumber. Which makes sense because if the array has 20 people in it, and we want to make five groups, each group would have four people in it.</p>
-
-<p>However, even though I made progress with feeling more comfortable with iteration, I found it difficult to return a different random person each time so my groups would always be filled with the same random person. My logic was something like how can I iterate over my random variable if it wasn&rsquo;t an array? Then I tried some stuff with iterating over the people array and only shoveling in each person if the person value was equal to the random person value&hellip;</p>
-
-<p>In any case, it didn&rsquo;t quite work out and I found a different method to get four different people into the array. So first I wanted to make an array with variables in it equal to the number of people I wanted in the group. So let that variable be called people_in_group (which would be the length of the people array divided by the number of groups we want).</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>Array.new(people_in_group)
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>Now this should create an array with a bunch of nils. But we can use .sample</p>
-
-<p>.sample can choose a random element from the array</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>Array.new(people_in_group){people.sample}
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>This will fill the new array with random people until the number of elements it has is equal to the number of people we want in the group.</p>
-
-<p>Right now I&rsquo;m working on making sure there are no repeated people inside each array. Then I will make sure the people do not repeat in each group.</p>
-
-<p>So hopefully completing this mini program will help me out further with iteration and sorting. In any case, maybe I&rsquo;ll be qualified enough as an entry-level pigeon sorter.</p>
-
-<p>My current trouble is now with classes. So hopefully by the next time I make another post I&rsquo;ll be confident enough to write a little about it.</p>
-
-		
-		
-	</div>
-
-
-<div class="meta">
-	<div class="date">
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2015-10-06T21:04:50-04:00" pubdate data-updated="true"></time></div>
-	
-
-<div class="tags">
-
-	<a class='category' href='/blog/categories/flatiron-school/'>flatiron school</a>
-
-</div>
-
-
-	
-</div></article>
-
 <nav id="pagenavi">
     
+    
+        <a href="2" class="next">Next</a>
     
     <div class="center"><a href="/archives">Blog Archives</a></div>
 </nav></div>
