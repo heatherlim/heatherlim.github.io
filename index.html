@@ -9,7 +9,7 @@
 
 <meta name="author" content="Heather Lim"> 
 
-<meta name="description" content="Getting ready. Last August, I had the amazing opportunity to give my first real technical presentation at NYC.rb! (Here&rsquo;s a link to its event &hellip;"> <meta name="keywords" content="">
+<meta name="description" content="What is an API? API stands for Application Programming Interface. It is an easy way for interacting with another application. For example, I could &hellip;"> <meta name="keywords" content="">
 
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
@@ -101,6 +101,90 @@ $(document).ready(
 </header>
 
 	<div id="content" class="inner">
+
+
+    <article class="post">
+	<h2 class="title">
+		
+		<a href="/blog/2016/10/10/on-restful-apis/">
+		
+			On RESTful APIs</a>
+	</h2>
+	<div class="entry-content">
+		<p><strong>What is an API?</strong></p>
+
+<p>API stands for Application Programming Interface.</p>
+
+<p>It is an easy way for interacting with another application. For example, I could make a GET request to a website’s API and it would give me back data as a response. There are also other requests you can make to an API that are covered further down. The API is acting as the middle-man between the programmer and the application. The providers of the application’s service would give instructions on how to properly format the requests I make to the API and how I can interact with it. It’s a contract where the API will accept my request, and if it is allowed, will then process it. Having an API gives third-party developers an easy way to use a website’s services. Thus, we can use an existing web application for our own purposes.</p>
+
+<p>For example, let’s say I want to make a web application that has a lot of pictures of cute animals. Where am I going to find all of these cute animals? While I could manually search for them and save them for my website, that seems like a hassle. Instead, I could make use of Reddit’s API to get these cute pictures. Reddit has a subreddit called /aww where users upload cute pictures of animals. I can make a GET request to Reddit’s API, and in return it could give me back a response (in this case, JSON) that contains information from the /aww subreddit including the images that users have been posting.</p>
+
+<p>In this case:</p>
+
+<p>GET <a href ="https://www.reddit.com/r/aww.json"><a href="https://www.reddit.com/r/aww.json">https://www.reddit.com/r/aww.json</a></a></p>
+
+<p>If I make a GET request to this URL, I will get JSON back and from the response I get, I can also get all sorts of information to use on my cute animal website such as links to the pictures. This is easier than scraping the data directly from reddit.</p>
+
+<p>Other examples of using an API could be to get back weather data. OpenWeatherMap has an API that let’s you easily get back information on the weather. To know which requests give back the responses you want, you can view their <a href="https://openweathermap.org/api">API docs</a>. In this case, you would need an API key to make requests. The key would help OpenWeatherMap control how their API is being used. One example could be limiting the number of requests you can make to the API within a certain amount of time.</p>
+
+<p><strong>What is REST?</strong></p>
+
+<p>REST stands for Representational State Transfer.</p>
+
+<p>It is an architectural style that helps with communications between computer systems. It’s a stateless communications protocol as in the state of the client session is not stored server side and HTTP requests happen in isolation. This means that it’s only concern is when a request is made and it does not care for past requests. There are benefits of having a stateless transaction. For one thing, it reduces memory storage and it’s also easier to cache. As the client is not aware of the implementation, it’s also more scalable.</p>
+
+<p>Generally, a RESTful service would be based on HTTP.</p>
+
+<p><strong>RESTful API?</strong></p>
+
+<p>Now, all of the previous examples of API calls are all known as RESTful APIs. Most RESTful APIs use HTTP requests, which are stateless. In the previous examples, I only showed one HTTP request method: GET.</p>
+
+<p>However, there are more and they all do different things.</p>
+
+<p>GET method requests data.</p>
+
+<p>POST method submits data.</p>
+
+<p>PATCH updates data.</p>
+
+<p>DELETE deletes data.</p>
+
+<p>There are more methods, but those are the main ones used. It should also be noted that not all HTTP methods are considered safe. Safe methods are those that do not modify data unlike methods such as - POST, PATCH, DELETE. It isn’t super common to allow unsafe methods because there could be repercussions when manipulating the resource especially if multiple people are doing so at the same time.</p>
+
+<p><strong>Example API</strong></p>
+
+<p>I made a simple demo API, you can see it <a href ="https://simpledemoapi.herokuapp.com/">HERE</a> and play around with it.</p>
+
+		
+		
+	</div>
+
+
+<div class="meta">
+	<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2016-10-10T04:10:00-04:00" pubdate data-updated="true"></time></div>
+	
+
+<div class="tags">
+
+	<a class='category' href='/blog/categories/api/'>api</a>, <a class='category' href='/blog/categories/demo/'>demo</a>, <a class='category' href='/blog/categories/rest/'>rest</a>
+
+</div>
+
+
+	
+</div></article>
 
 
     <article class="post">
@@ -1972,172 +2056,6 @@ I&rsquo;m reading the prefix expression from right to left, popping a value from
 
 
 <time datetime="2015-11-09T22:14:16-05:00" pubdate data-updated="true"></time></div>
-	
-
-<div class="tags">
-
-	<a class='category' href='/blog/categories/flatiron-school/'>flatiron school</a>
-
-</div>
-
-
-	
-</div></article>
-
-
-    <article class="post">
-	<h2 class="title">
-		
-		<a href="/blog/2015/10/25/my-first-post-on-octopress/">
-		
-			Things Coming Round Again and the Importance of Thinking Before Coding</a>
-	</h2>
-	<div class="entry-content">
-		<p>I&rsquo;m still working on my cute random group sample code because spending hours solving a &ldquo;problem&rdquo; that probably takes up just ten minutes of your time doing manually is a fun thing to do. It really is.</p>
-
-<p>Anyway, it has made a lot of progress from before. I remembered that I was so uncomfortable with classes two weeks ago&hellip; and now&hellip; well I&rsquo;m still not as comfortable as I&rsquo;d like to be but I&rsquo;m actually using them now which is a plus. Something I learned while working on this is that sometimes the best way to solve a problem is the simplest approach. I was so excited about using .sample that I ignored some of the more obvious methods to use. Instead, I used .sample and .pop to pull random people from the array.</p>
-
-<p>This is a section of my original code:</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>def random_group(people, groupnumber)
-</span><span class='line'>  random_person = people.sample
-</span><span class='line'>  binding.pry
-</span><span class='line'>  group_array = [] 
-</span><span class='line'>   Array.new(groupnumber) {people.sample }
-</span><span class='line'>    people.each do |each_person|
-</span><span class='line'>      if each_person != random_person
-</span><span class='line'>        group_array &lt;&lt; random_person
-</span><span class='line'>        people.delete_if {|repeat_person| repeat_person == random_person}
-</span><span class='line'>        binding.pry
-</span><span class='line'>      elsif each_person == random_person
-</span><span class='line'>        people.delete_if {|repeat_person| repeat_person == random_person}
-</span><span class='line'>      end     
-</span><span class='line'>    end</span></code></pre></td></tr></table></div></figure>
-
-
-<p>If you can&rsquo;t decipher what the hell is going on, that&rsquo;s fine because it didn&rsquo;t work and I could barely tell myself what I was doing. First warning sign I suppose that I should find a different approach.</p>
-
-<p>My problem I outlined in my previous post was that .sample would take a random person out of the array but there when the method was run again, there was still a chance to pick the same person out of the array. The person wasn&rsquo;t actually removed in the array. While I had thought I could use .pop, that method would not be random.</p>
-
-<p>The solution was to use .shuffle before .pop was used. This way, I can now pick random people out of the array until it was empty. I wasted a lot of time with .sample because I was too focused in using .sample than using the right tool for the job. I&rsquo;m not saying using .sample is impossible but .shuffle and .pop made mroe sense to me.</p>
-
-<p>Now my code has two methods that make the hash and fill it.</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>def create_groups 
-</span><span class='line'>     range = (1..@groupnumber).to_a
-</span><span class='line'>     range.each do |indgroup| # 1, 2, 3, 4...
-</span><span class='line'>     @groups["group" + " " + "#{indgroup}"] = []
-</span><span class='line'>    end  
-</span><span class='line'>    @groups
-</span><span class='line'>  end
-</span><span class='line'>
-</span><span class='line'>  def filling_group
-</span><span class='line'>    people_number = @people.count/@groupnumber
-</span><span class='line'>    range = (1..@groupnumber).to_a
-</span><span class='line'>     range.each do |indgroup|
-</span><span class='line'>        @groups["group" + " " + "#{indgroup}"] &lt;&lt; @people.shuffle!.pop(people_number)    
-</span><span class='line'>          @groups.values.each do |x|
-</span><span class='line'>            x.flatten!
-</span><span class='line'>         end
-</span><span class='line'>     end 
-</span><span class='line'>  end</span></code></pre></td></tr></table></div></figure>
-
-
-<p>With this, I had fulfilled the first goal I set. Right now, my code could create x number of groups for x amount of people. I added the code below as well so that it would be possible for people to be divided into groups even if the groups were uneven. Like 20 people could be divided into 7 groups and so on.</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>def if_uneven
-</span><span class='line'>    range = (1..@people.count).to_a
-</span><span class='line'>    range.each do |indgroup|
-</span><span class='line'>      @groups["group" + " " + "#{indgroup}"] &lt;&lt; @people.shuffle!.pop
-</span><span class='line'>    end
-</span><span class='line'>  end</span></code></pre></td></tr></table></div></figure>
-
-
-<p>After people are sorted into groups, the remaining number of people would in the people array would be iterated through again and distributed amoungst the groups already made.</p>
-
-<p>And now comes the part where thinking ahead would have really helped me out. I had thought that being able to sort people randomly into groups was the first step in my project. The second step would be to show all other unique possibilities of groups. Though I could keep running the program, it does not actually &ldquo;remember&rdquo; the last distribution it made. So it is highly possible that if Person 1 and Person 2 were paired together, they could be paired together again whether in the same group or a different one.</p>
-
-<p>I spent awhile thinking about how to make the program remember what groups each person was put into and make sure they&rsquo;d never be in a group where some of their original group mates were. Should I use databases to store this information? Or I could make an even bigger hash. I could place</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>groups = {
-</span><span class='line'>  :group1 =&gt; [],
-</span><span class='line'>  :group2 =&gt; [],
-</span><span class='line'>  :group3 =&gt; [],
-</span><span class='line'>  :group4 =&gt; [],
-</span><span class='line'>  :group5 =&gt; []
-</span><span class='line'>}</span></code></pre></td></tr></table></div></figure>
-
-
-<p>into a hash with values of days. So it would be Day 1 => groups&hellip; Day 2 => groups&hellip;</p>
-
-<p>But then I realized that my problem was a symptom of not thinking ahead. If I were going to list out all possible unique combinations, why the hell was I randomizing it? Instead, I needed a method that would pick out the groups in the exact same way each time.</p>
-
-<p>So thinking ahead would have saved me a lot of time though in the end I still learned a lot. Though just for more practice I decided to try make my program into a webapp to get more familiar with sinatra. The final result is a page that would show groups and their random distribution whenever it gets refreshed. Eventually I&rsquo;d like to make a form where people can simply input the number of groups they want and the people they want to sort.</p>
-
-		
-		
-	</div>
-
-
-<div class="meta">
-	<div class="date">
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2015-10-25T20:44:04-04:00" pubdate data-updated="true"></time></div>
 	
 
 <div class="tags">
