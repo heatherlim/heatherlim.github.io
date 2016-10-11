@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>http://heatherlim.github.io/blog/2016/10/10/associations-with-activerecord/</loc>
+    <lastmod>2016-10-10T04:58:48-04:00</lastmod>
+  </url>
+  <url>
     <loc>http://heatherlim.github.io/blog/2016/10/10/on-restful-apis/</loc>
     <lastmod>2016-10-10T04:10:00-04:00</lastmod>
   </url>
@@ -131,5 +135,14 @@
   </url>
   <url>
     <loc>http://heatherlim.github.io/blog/categories/demo/</loc>
+  </url>
+  <url>
+    <loc>http://heatherlim.github.io/blog/categories/rails/</loc>
+  </url>
+  <url>
+    <loc>http://heatherlim.github.io/blog/categories/activerecord/</loc>
+  </url>
+  <url>
+    <loc>http://heatherlim.github.io/blog/categories/mass-assignment/</loc>
   </url>
 </urlset>

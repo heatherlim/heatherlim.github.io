@@ -9,7 +9,7 @@
 
 <meta name="author" content="Heather Lim"> 
 
-<meta name="description" content="I&rsquo;m still working on my cute random group sample code because spending hours solving a &ldquo;problem&rdquo; that probably takes up just ten &hellip;"> <meta name="keywords" content="">
+<meta name="description" content="While working on my sorting program, I came across several interesting methods that I didn&rsquo;t know before. While I haven&rsquo;t used any of &hellip;"> <meta name="keywords" content="">
 
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
@@ -101,6 +101,261 @@ $(document).ready(
 </header>
 
 	<div id="content" class="inner">
+
+
+    <article class="post">
+	<h2 class="title">
+		
+		<a href="/blog/2015/11/09/methods-of-sorting/">
+		
+			Methods of Sorting and a Bit of Trailing Around From There</a>
+	</h2>
+	<div class="entry-content">
+		<p>While working on my sorting program, I came across several interesting methods that I didn&rsquo;t know before. While I haven&rsquo;t used any of them in my project thus far, I still found them pretty cool. From there I normally go on long google crawls until sometimes I learn things completely unrelated but still pretty cool. So this blog post is about my train of thought and how I get from sorting to something else entirely.</p>
+
+<p>The first two methods I played around with were array methods called permutation and combination.</p>
+
+<p>An example of permutation:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>[1, 2, 3].permutation.to_a
+</span><span class='line'>=&gt; [[1, 2, 3], [1, 3, 2], [2, 1, 3], [2, 3, 1], [3, 1, 2], [3, 2, 1]]
+</span><span class='line'>[1, 2, 3].permutation(2).to_a
+</span><span class='line'>=&gt; [[1, 2], [1, 3], [2, 1], [2, 3], [3, 1], [3, 2]]</span></code></pre></td></tr></table></div></figure>
+
+
+<p>An example of combination:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>[1, 2, 3].combination(2).to_a
+</span><span class='line'>=&gt; [[1, 2], [1, 3], [2, 3]] </span></code></pre></td></tr></table></div></figure>
+
+
+<p>Combination requires you to put in an argument while permutation does not. Permutation defaults to the number of elements in the array. Also notable is that there are always going to be more permutations than combinations because combination takes order of the elements into account so [1, 2] and [2, 1] are considered the same.</p>
+
+<p>So how could I find all combinations in an array of people so that every person in the array would have met exactly once? So a group of Mary and Tom would be considered the same as a group of Tom and Mary. Well&hellip; there&rsquo;s a gem for that. It&rsquo;s called the round robin tournmanet gem. And I&rsquo;ll provide a link at the bottom.</p>
+
+<p>This is a portion of its  code that I copied from its github repository:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>def self.schedule(array)
+</span><span class='line'>    array.push nil if array.size.odd?
+</span><span class='line'>    n = array.size
+</span><span class='line'>    pivot = array.pop
+</span><span class='line'>    games = (n - 1).times.map do
+</span><span class='line'>      array.rotate!
+</span><span class='line'>      [[array.first, pivot]] + (1...(n / 2)).map { |j| [array[j], array[n - 1 - j]] }
+</span><span class='line'>    end
+</span><span class='line'>    array.push pivot unless pivot.nil?
+</span><span class='line'>    games
+</span><span class='line'>  end
+</span><span class='line'>
+</span><span class='line'>  # running it will give...
+</span><span class='line'>
+</span><span class='line'>  self.schedule(a)
+</span><span class='line'> =&gt; [[[2, 4], [3, 1]], [[3, 4], [1, 2]], [[1, 4], [2, 3]]] </span></code></pre></td></tr></table></div></figure>
+
+
+<p>Pretty cool!</p>
+
+<p>Interestingly enough however, while I find methods that work for sorting unique pairs, unique trios and so on&hellip; they all function very differently so I&rsquo;m still looking for one that could work in all cases for my sorting project.</p>
+
+<p>Another method I found helpful is a rails method called in_groups_of. It is used to split an array into groups of whatever number is put inside the argument.</p>
+
+<p>Here&rsquo;s an example of its usage:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>%w(1 2 3 4 5 6 7 8 9 10).in_groups_of(3) {|group| p group}
+</span><span class='line'>["1", "2", "3"]
+</span><span class='line'>["4", "5", "6"]
+</span><span class='line'>["7", "8", "9"]
+</span><span class='line'>["10", nil, nil]</span></code></pre></td></tr></table></div></figure>
+
+
+<p>The example I saw was the first time I saw %w in use too. Putting the %w makes it so the elements are split up by the whitespace. So I would be able to get the same result if I had typed [1, 2, 3, 4, 5, 6, 7, 8, 9, 10].in_groups_of(3) as well.</p>
+
+<p>Note that it padded the last group with nil. There&rsquo;s a way around that if that isn&rsquo;t what you&rsquo;re looking for. For example:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>%w(1 2 3 4 5).in_groups_of(2, false) {|group| p group}
+</span><span class='line'>["1", "2"]
+</span><span class='line'>["3", "4"]
+</span><span class='line'>["5"]</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Here you can see there is a second argument placed. When false is written there, it will not pad the remaining spaces left over from the uneven grouping. Aside from false, you can also place anything else in there and the method will use that to pad the empty spaces.</p>
+
+<p>This method however is only available in rails. In ruby there is a similar method called each_slice.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>(1..10).each_slice(3) {|a| p a}
+</span><span class='line'># outputs below
+</span><span class='line'>[1, 2, 3]
+</span><span class='line'>[4, 5, 6]
+</span><span class='line'>[7, 8, 9]
+</span><span class='line'>[10]</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Aside from a range, it is also possible to use it on an array. Both of those methods work similar to the way my sorting program does. But it divides up an array based on how many elements one wants inside each new group rather than the group number.</p>
+
+<p>Something random I found interesting when I was experimenting was that when I called .class on the result of each_slice, I was getting a NilClass.</p>
+
+<p>What I copied from my cmd line:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>2.2.2 :010 &gt; (1..10).each_slice(3) {|a| p a}
+</span><span class='line'>[1, 2, 3]
+</span><span class='line'>[4, 5, 6]
+</span><span class='line'>[7, 8, 9]
+</span><span class='line'>[10]
+</span><span class='line'> =&gt; nil 
+</span><span class='line'>2.2.2 :011 &gt; _.class
+</span><span class='line'>=&gt; NilClass </span></code></pre></td></tr></table></div></figure>
+
+
+<p>I thought it was interesting because I was using &lsquo;p&rsquo; in the {|a| p a } part. A distinction between p and puts would be that p normally returns to me the actual class. Not nil. Maybe it returned nile because of something to do with the iteration? I&rsquo;m not too sure.</p>
+
+<p>Distinguising p and puts example:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>2.2.2 :017 &gt; p "1"
+</span><span class='line'>"1"
+</span><span class='line'> =&gt; "1" 
+</span><span class='line'>2.2.2 :018 &gt; _.class
+</span><span class='line'> =&gt; String 
+</span><span class='line'>2.2.2 :019 &gt; puts "1"
+</span><span class='line'>1
+</span><span class='line'> =&gt; nil 
+</span><span class='line'>2.2.2 :020 &gt; _.class
+</span><span class='line'> =&gt; NilClass </span></code></pre></td></tr></table></div></figure>
+
+
+<p>p calls on .inspect. Notie that the return value is not nil. So it was odd for me that in the each slice example it gave me a nil return value. I experimented a bit further with each slice to see what puts and print would give me if I placed it where the p was.</p>
+
+<p>print:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>2.2.2 :024 &gt; (1..10).each_slice(3) {|a| print a}
+</span><span class='line'>[1, 2, 3][4, 5, 6][7, 8, 9][10] =&gt; nil </span></code></pre></td></tr></table></div></figure>
+
+
+<p>Considering that print was like puts but does not add a new line, I was not too surprised to see this.</p>
+
+<p>But when I used puts&hellip;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>2.2.2 :025 &gt; (1..10).each_slice(3) {|a| puts a}
+</span><span class='line'>1
+</span><span class='line'>2
+</span><span class='line'>3
+</span><span class='line'>4
+</span><span class='line'>5
+</span><span class='line'>6
+</span><span class='line'>7
+</span><span class='line'>8
+</span><span class='line'>9
+</span><span class='line'>10
+</span><span class='line'> =&gt; nil </span></code></pre></td></tr></table></div></figure>
+
+
+<p>It surprised me that it did not actually output the arrays but just the whole range. I&rsquo;m not too sure why it did that. I assume on the first iteration a is [1, 2, 3] and so on&hellip; and used a pry to confirm it was too. So I wonder why it prints out the whole range instead of the array.</p>
+
+<p>References:<br>
+<a href = "http://chriscontinanza.com/2010/10/29/Array.html">Permutations and Combinations</a><br>
+<a href = "http://apidock.com/rails/Array/in_groups_of">in groups of</a><br>
+<a href = "http://apidock.com/ruby/Enumerable/each_slice">each slice</a><br>
+<a href = "http://www.garethrees.co.uk/2013/05/04/p-vs-puts-vs-print-in-ruby/">difference between p, puts and print</a><br>
+<a href = "https://github.com/ssaunier/round_robin_tournament">round robin gem</a></p>
+
+		
+		
+	</div>
+
+
+<div class="meta">
+	<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2015-11-09T22:14:16-05:00" pubdate data-updated="true"></time></div>
+	
+
+<div class="tags">
+
+	<a class='category' href='/blog/categories/flatiron-school/'>flatiron school</a>
+
+</div>
+
+
+	
+</div></article>
 
 
     <article class="post">
