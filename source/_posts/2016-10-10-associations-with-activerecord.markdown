@@ -1,0 +1,194 @@
+---
+layout: post
+title: "Associations with ActiveRecord"
+date: 2016-10-10 04:58:48 -0400
+comments: true
+categories: 
+- Ruby
+- Rails
+- ActiveRecord
+- Mass Assignment
+---
+
+This post is based on the models I made for my demo API from the last post. 
+
+I want to make an app where users can save recipes. They can then have many collections of recipes they can refer to. Let's call each of these collections a recipe box. Also, a recipe will have lots of different ingredients so a user can easily look up what kinds of ingredients they need to make that recipe. 
+
+Simple enough!
+
+First, I want to model out how I want the data to be stored. There are a few things to think about when doing this. Let's use Twitter for example.
+
+<table>
+  <tr>
+    <th colspan="2" style="text-align:center">users</th>
+  </tr>
+  <tr>
+    <th>id</th>
+    <th>name</th>
+  </tr>
+  <tr>
+    <td>1</td>
+    <td>Amy</td>
+  </tr>
+  <tr>
+    <td>2</td>
+    <td>John</td>
+  </tr>
+</table>
+
+Let's pretend this is the users table for Twitter. I'm modeling this out in Rails and it is convention to have a plural table name. We know that a user can have many tweets. How would be a good way to store it? What if we added multiple columns to the users table? Would that be a good way?
+
+<table>
+  <tr>
+    <th colspan="5" style="text-align:center">users</th>
+  </tr>
+  <tr>
+    <th>id</th>
+    <th>name</th>
+    <th style="text-align:center">tweet_1</th>
+    <th style="text-align:center">tweet_2</th>
+    <th style="text-align:center">tweet_3</th>
+  </tr>
+  <tr>
+    <td>1</td>
+    <td>Amy</td>
+    <td>Hello world</td>
+    <td>Wow another column</td>
+    <td>Getting kinda crowded</td>
+  </tr>
+  <tr>
+    <td>2</td>
+    <td>John</td>
+    <td>What happens if we have hundreds of tweets?</td>
+    <td>This table will get ridiculously big.</td>
+    <td>What's a better way to do this?</td>
+  </tr>
+</table>
+
+As you can see however, this isn't the best way to do things. Another solution would be to create a separate table for tweets.
+
+<table>
+  <tr>
+    <th colspan="2" style="text-align:center">tweets</th>
+  </tr>
+  <tr>
+    <th>id</th>
+    <th style="text-align:center">body</th>
+  </tr>
+  <tr>
+    <td>1</td>
+    <td>Hello world</td>
+  </tr>
+  <tr>
+    <td>2</td>
+    <td>Much better now</td>
+  </tr>
+  <tr>
+    <td>3</td>
+    <td>We can just add more rows</td>
+  </tr>
+</table>
+
+But how can we now associate this tweet table with the users? This is where a join table comes in. We are going to make a user_tweets table that will be our reference for which tweet belongs to which user.
+
+<table>
+  <tr>
+    <th colspan="3" style="text-align:center">user_tweets</th>
+  </tr>
+  <tr>
+    <th>id</th>
+    <th style="text-align:center">user_id</th>
+    <th style="text-align:center">tweet_id</th>
+  </tr>
+  <tr>
+    <td>1</td>
+    <td>1</td>
+    <td>1</td>
+  </tr>
+  <tr>
+    <td>2</td>
+    <td>1</td>
+    <td>3</td>
+  </tr>
+  <tr>
+    <td>3</td>
+    <td>2</td>
+    <td>2</td>
+  </tr>
+</table>
+
+In this table, the user_id refers to the id of the user table. The tweet_id refers to the id of the tweet table. These are known as foreign keys because they are referencing a row in a different table. Reading this, we can see that Amy has two tweets - tweet with id 1 and tweet with id 3.
+
+
+Just below, is a diagram of my ActiveRecord models for the demo API. I used the Rails ERD gem for this.
+
+<img src = "{{ root_url }}/images/apidiagram.jpg" width = 500>
+
+As you can see, a recipe has many ingredients. Likewise, an ingredient will have many recipes. I've joined these two tables together through a join table called recipe_ingredients. Just below, you can see how this kind of relationship is defined in your Rails model.
+
+```
+class Recipe < ActiveRecord::Base
+  has_many :recipe_box_recipes
+  has_many :recipe_boxes, through: :recipe_box_recipes
+  has_many :recipe_ingredients
+  has_many :ingredients, through: :recipe_ingredients
+end
+
+class RecipeIngredient < ActiveRecord::Base
+  belongs_to :recipe
+  belongs_to :ingredient
+end
+
+class Ingredient < ActiveRecord::Base
+  has_many :recipe_ingredients
+  has_many :recipes, through: :recipe_ingredients
+end
+```
+
+We use a has_many :through as our model Recipe is matched with the model Ingredient by going through RecipeIngredient. My recipe_ingredients table has a column for both recipe_id and ingredient_id and that is how the two models are connected.
+
+It is a bit of a simpler association between a User and their RecipeBox. A recipe box can only have on user while a user can have many recipe boxes. For this, we will not need a join table. However, a recipe box can contain many recipes and a recipe can also have many recipe boxes. So, we will need a join table for that relation. Here, it is called RecipeBoxRecipe. RecipeBoxRecipe has a recipe_box_id and a recipe_id for its foreign keys. 
+
+```
+class User < ActiveRecord::Base
+  has_many :recipe_boxes
+end
+
+class RecipeBox < ActiveRecord::Base
+  belongs_to :user
+  has_many :recipe_box_recipes
+  has_many :recipes, through: :recipe_box_recipes
+end
+
+class RecipeBoxRecipe < ActiveRecord::Base
+  belongs_to :recipe_box
+  belongs_to :recipe
+end
+```
+Now that we have set up these associations, we will be able to call methods like user.recipe_boxes to see all the boxes a chosen user has. We can also choose a specific recipe box and call something like recipe_box.recipes to see all the recipes it contains. Something also interesting to note for Rails is that when we created our tables, we did not have to define which column will be a foreign key. Rails naturally recognizes that the foreign key will be the name of the model with \_id added. 
+
+ActiveRecord also lets us easily save a row to a table by calling .save on the model. 
+
+Let's say we want to add something to a table. 
+
+```
+@post = Post.new
+@post.author = "Bob"
+@post.title = "Hello World"
+@post.description = "This is a post."
+@post.save
+```
+Now we have a row that has both a recipe id and ingredient id of 1. Another way to do this is through what is known as mass assignment. This way, we can create this object with a parameter hash instead.
+```
+@post = Post.create(:author => "Bob", :title => "Hello World", :description => "This is a post.")
+```
+Something to think about when using mass assignment are strong parameters. With mass assignment, you can run into the danger where users can modify data they should not be able to. 
+
+```
+private
+
+def post_params
+  params.required(:post).permit(:author, :title, :description)
+end
+```
+This way, the only params that can be modified are the author, title and description. 
